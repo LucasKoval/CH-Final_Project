@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "productos": [
+      {
+        "id": 2,
+        "nombre": "Calculadora",
+        "descripcion": "Calculadora marca Casio",
+        "foto_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-64.png",
+        "precio": 234.56,
+        "stock": 15
+      },
+      {
+        "id": 3,
+        "nombre": "Globo Terráqueo",
+        "descripcion": "Globo Terráqueo mediano marca Alta Tierra",
+        "foto_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-64.png",
+        "precio": 345.67,
+        "stock": 6
+      }
+    ]
+  }
+]

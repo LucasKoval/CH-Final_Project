@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "nombre": "Escuadra",
+    "descripcion": "Escuadra de plastico",
+    "foto_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-64.png",
+    "precio": 123.45,
+    "stock": 7
+  },
+  {
+    "id": 2,
+    "nombre": "Calculadora",
+    "descripcion": "Calculadora marca Casio",
+    "foto_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-64.png",
+    "precio": 234.56,
+    "stock": 15
+  },
+  {
+    "id": 3,
+    "nombre": "Globo Terráqueo",
+    "descripcion": "Globo Terráqueo mediano marca Alta Tierra",
+    "foto_url": "https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-64.png",
+    "precio": 345.67,
+    "stock": 6
+  }
+]
