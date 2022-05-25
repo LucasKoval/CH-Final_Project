@@ -1,0 +1,30 @@
+{
+  "type": "module",
+  "name": "ch-final-project",
+  "version": "1.0.0",
+  "description": "CoderHouse Final Project - Ecommerce",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon .",
+    "start:mongo": "PERS=mongodb node .",
+    "start:firebase": "PERS=firebase node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LucasKoval/CH-Final-Project.git"
+  },
+  "keywords": [],
+  "author": "Lucas Koval",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LucasKoval/CH-Final-Project/issues"
+  },
+  "homepage": "https://github.com/LucasKoval/CH-Final-Project#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "firebase-admin": "^10.2.0",
+    "mongodb": "^4.6.0",
+    "mongoose": "^6.3.3"
+  }
+}
