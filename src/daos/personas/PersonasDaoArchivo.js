@@ -1,10 +1,9 @@
-import ContenedorArchivo from "../../contenedores/ContenedorArchivo.js"
+import ContenedorArchivo from '../../contenedores/ContenedorArchivo.js.js.js'
 
 class PersonasDaoArchivo extends ContenedorArchivo {
-
-    constructor(rutaDir) {
-        super(`${rutaDir}/personas.json`)
-    }
+  constructor(rutaDir) {
+    super(`${rutaDir}/personas.json`)
+  }
 }
 
 export default PersonasDaoArchivo

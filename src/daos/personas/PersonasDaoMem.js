@@ -1,7 +1,5 @@
-import ContenedorMemoria from "../../contenedores/ContenedorMemoria.js"
+import ContenedorMemoria from '../../contenedores/ContenedorMemoria.js.js.js'
 
-class PersonasDaoMem extends ContenedorMemoria {
-
-}
+class PersonasDaoMem extends ContenedorMemoria {}
 
 export default PersonasDaoMem
