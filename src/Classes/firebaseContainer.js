@@ -1,10 +1,13 @@
 //----------* IMPORTS *----------//
 import admin from 'firebase-admin'
 import config from '../config.js'
+// Temp import ¬
+import serviceAccount from 'path/to/serviceAccountKey.json'
 
 //----------* FIREBASE CONNECTION *----------//
 admin.initializeApp({
   credential: admin.credential.cert(config.firebase),
+  //databaseURL: "https://ch-tpfinal-ecommerce.firebaseio.com"
 })
 const db = admin.firestore()
 
