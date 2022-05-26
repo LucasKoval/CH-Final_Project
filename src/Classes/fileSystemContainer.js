@@ -11,7 +11,7 @@ class FileSystemContainer {
     try {
       return JSON.parse(await fs.promises.readFile(`DB/${this.fileName}.json`, 'utf-8'))
     } catch (error) {
-      console.log(error)
+      throw new Error(`Reading error: ${error}`)
     }
   }
 
@@ -19,7 +19,7 @@ class FileSystemContainer {
     try {
       fs.promises.writeFile(`DB/${this.fileName}.json`, JSON.stringify(data), 'utf-8')
     } catch (error) {
-      console.log(error)
+      throw new Error(`Writing error: ${error}`)
     }
   }
 
@@ -40,7 +40,7 @@ class FileSystemContainer {
       const itemFound = allItems.find((item) => item.id === Number(id))
       return itemFound
     } catch (error) {
-      console.log(error)
+      throw new Error(`Error getting item: ${error}`)
     }
   }
 
@@ -50,7 +50,7 @@ class FileSystemContainer {
       allItems.push(object)
       await this.writeFile(allItems)
     } catch (error) {
-      console.log(error)
+      throw new Error(`Error adding item: ${error}`)
     }
   }
 
@@ -60,7 +60,7 @@ class FileSystemContainer {
       allItems = allItems.map((item) => (item.id !== object.id ? item : object))
       await this.writeFile(allItems)
     } catch (error) {
-      console.log(error)
+      throw new Error(`Error editing item: ${error}`)
     }
   }
 
@@ -75,7 +75,7 @@ class FileSystemContainer {
         return true
       }
     } catch (error) {
-      console.log(error)
+      throw new Error(`Error deleting item: ${error}`)
     }
   }
 
@@ -83,7 +83,7 @@ class FileSystemContainer {
     try {
       await this.writeFile([])
     } catch (error) {
-      console.log(error)
+      throw new Error(`Error deleting all: ${error}`)
     }
   }
 
@@ -95,7 +95,7 @@ class FileSystemContainer {
       allItems = allItems.map((item) => (item.id !== itemFound.id ? item : itemFound))
       await this.writeFile(allItems)
     } catch (error) {
-      console.log(error)
+      throw new Error(`Error adding item into: ${error}`)
     }
   }
 
@@ -107,7 +107,7 @@ class FileSystemContainer {
       allItems = allItems.map((item) => (item.id !== itemFound.id ? item : itemFound))
       await this.writeFile(allItems)
     } catch (error) {
-      console.log(error)
+      throw new Error(`Error deleting item from: ${error}`)
     }
   }
 
@@ -119,7 +119,7 @@ class FileSystemContainer {
       allItems = allItems.map((item) => (item.id !== itemFound.id ? item : itemFound))
       await this.writeFile(allItems)
     } catch (error) {
-      console.log(error)
+      throw new Error(`Error emptying container: ${error}`)
     }
   }
 }

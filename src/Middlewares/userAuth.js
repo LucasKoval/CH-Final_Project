@@ -24,8 +24,4 @@ const adminAuth = (req, res, next) => {
 }
 
 //----------* EXPORTS MIDDLEWARE *----------//
-module.exports = {
-  login,
-  logout,
-  adminAuth,
-}
+export { login, logout, adminAuth }

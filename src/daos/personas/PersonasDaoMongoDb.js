@@ -1,4 +1,4 @@
-import ContenedorMongoDb from '../../contenedores/ContenedorMongoDb.js'
+import ContenedorMongoDb from '../../TempContainers/ContenedorMongoDb'
 
 class PersonasDaoMongoDb extends ContenedorMongoDb {
   constructor() {

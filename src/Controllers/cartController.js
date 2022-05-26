@@ -1,13 +1,12 @@
-//----------* REQUIRE'S *----------//
-const FileSystemContainer = require('../Classes/fileSystemContainer')
-const cartDB = new FileSystemContainer('cart')
-const productDB = new FileSystemContainer('products')
+//----------* IMPORTS *----------//
+import { productDAO } from '../Daos/products/index'
+import { cartDAO } from '../Daos/carts/index'
 
 //----------* CART CONTROLLER *----------//
 const cartController = {
   cartList: async (req, res) => {
     try {
-      const allCarts = await cartDB.getAll()
+      const allCarts = await cartDAO.getAll()
       res.json(allCarts)
     } catch (error) {
       console.log(`ERROR: ${error}`)
@@ -17,7 +16,7 @@ const cartController = {
   getCartById: async (req, res) => {
     try {
       const cartId = req.params.id
-      const cartFound = await cartDB.getById(cartId)
+      const cartFound = await cartDAO.getById(cartId)
 
       if (!cartFound) {
         res.send({ error: 'Cart not found.' })
@@ -32,7 +31,7 @@ const cartController = {
   cartProductList: async (req, res) => {
     try {
       const cartId = req.params.id
-      const cartFound = await cartDB.getById(cartId)
+      const cartFound = await cartDAO.getById(cartId)
 
       if (!cartFound) {
         res.send({ error: 'Cart not found.' })
@@ -46,7 +45,7 @@ const cartController = {
 
   createNewCart: async (req, res) => {
     try {
-      const allCarts = await cartDB.getAll()
+      const allCarts = await cartDAO.getAll()
 
       const getNewId = () => {
         let lastID = 0
@@ -61,7 +60,7 @@ const cartController = {
         productos: [],
       }
 
-      await cartDB.addItem(newCart)
+      await cartDAO.addItem(newCart)
       res.json(newCart.id)
     } catch (error) {
       console.log(`ERROR: ${error}`)
@@ -73,16 +72,16 @@ const cartController = {
       const cartId = req.params.id
       const prodId = req.params.id_prod
 
-      const cartFound = await cartDB.getById(cartId)
-      const productFound = await productDB.getById(prodId)
+      const cartFound = await cartDAO.getById(cartId)
+      const productFound = await productDAO.getById(prodId)
 
       if (!cartFound) {
         res.send({ error: 'Cart not found.' })
       } else if (!productFound) {
         res.send({ error: 'Product not found.' })
       } else {
-        await cartDB.addItemInto(cartFound.id, productFound)
-        const updatedCart = await cartDB.getById(cartId)
+        await cartDAO.addItemInto(cartFound.id, productFound)
+        const updatedCart = await cartDAO.getById(cartId)
         res.json(updatedCart)
       }
     } catch (error) {
@@ -95,16 +94,16 @@ const cartController = {
       const cartId = req.params.id
       const prodId = req.params.id_prod
 
-      const cartFound = await cartDB.getById(cartId)
-      const productFound = await productDB.getById(prodId)
+      const cartFound = await cartDAO.getById(cartId)
+      const productFound = await productDAO.getById(prodId)
 
       if (!cartFound) {
         res.send({ error: 'Cart not found.' })
       } else if (!productFound) {
         res.send({ error: 'Product not found.' })
       } else {
-        await cartDB.removeItemFrom(cartFound.id, productFound.id)
-        const updatedCart = await cartDB.getById(cartId)
+        await cartDAO.removeItemFrom(cartFound.id, productFound.id)
+        const updatedCart = await cartDAO.getById(cartId)
         res.json(updatedCart)
       }
     } catch (error) {
@@ -115,13 +114,13 @@ const cartController = {
   emptyCart: async (req, res) => {
     try {
       const cartId = req.params.id
-      const cartFound = await cartDB.getById(cartId)
+      const cartFound = await cartDAO.getById(cartId)
 
       if (!cartFound) {
         res.send({ error: 'Cart not found.' })
       } else {
-        await cartDB.emptyContainer(cartId)
-        const updatedCart = await cartDB.getById(cartId)
+        await cartDAO.emptyContainer(cartId)
+        const updatedCart = await cartDAO.getById(cartId)
         res.json(updatedCart)
       }
     } catch (error) {
@@ -131,4 +130,4 @@ const cartController = {
 }
 
 //----------* EXPORTS CONTROLLER *----------//
-module.exports = cartController
+export default cartController
