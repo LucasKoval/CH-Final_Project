@@ -1,4 +1,4 @@
-import ContenedorArchivo from '../../contenedores/ContenedorArchivo.js.js.js'
+import ContenedorArchivo from '../../TempContainers/ContenedorArchivo'
 
 class PersonasDaoArchivo extends ContenedorArchivo {
   constructor(rutaDir) {

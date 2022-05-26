@@ -1,4 +1,4 @@
-import ContenedorMemoria from '../../contenedores/ContenedorMemoria.js.js.js'
+import ContenedorMemoria from '../../TempContainers/ContenedorMemoria'
 
 class PersonasDaoMem extends ContenedorMemoria {}
 

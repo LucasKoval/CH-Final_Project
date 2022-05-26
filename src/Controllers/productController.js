@@ -1,12 +1,11 @@
-//----------* REQUIRE'S *----------//
-const FileSystemContainer = require('../Classes/fileSystemContainer')
-const productDB = new FileSystemContainer('products')
+//----------* IMPORTS *----------//
+import { productDAO } from '../Daos/products/index'
 
 //----------* PRODUCT CONTROLLER *----------//
 const productController = {
   productList: async (req, res) => {
     try {
-      const allProducts = await productDB.getAll()
+      const allProducts = await productDAO.getAll()
       res.json(allProducts)
     } catch (error) {
       console.log(`ERROR: ${error}`)
@@ -16,7 +15,7 @@ const productController = {
   getProductById: async (req, res) => {
     try {
       const prodId = req.params.id
-      const productFound = await productDB.getById(prodId)
+      const productFound = await productDAO.getById(prodId)
 
       if (!productFound) {
         res.send({ error: 'Product not found.' })
@@ -30,7 +29,7 @@ const productController = {
 
   addNewProduct: async (req, res) => {
     try {
-      const allProducts = await productDB.getAll()
+      const allProducts = await productDAO.getAll()
       const noImage =
         'https://cdn4.iconfinder.com/data/icons/basic-ui-element-flat-style/512/Basic_UI_Elements_-_2.3_-_Flat_Style_-_36-02-64.png'
 
@@ -61,7 +60,7 @@ const productController = {
         stock: req.body.stock ? req.body.stock : 0,
       }
 
-      await productDB.addItem(newProduct)
+      await productDAO.addItem(newProduct)
       res.json(newProduct)
     } catch (error) {
       console.log(`ERROR: ${error}`)
@@ -71,7 +70,7 @@ const productController = {
   editProduct: async (req, res) => {
     try {
       const prodId = req.params.id
-      const productFound = await productDB.getById(prodId)
+      const productFound = await productDAO.getById(prodId)
 
       if (!productFound) {
         res.send({ error: 'Product not found.' })
@@ -85,7 +84,7 @@ const productController = {
           stock: req.body.stock ? req.body.stock : productFound.stock,
         }
 
-        await productDB.editById(editedProduct)
+        await productDAO.editById(editedProduct)
 
         res.json(editedProduct)
       }
@@ -97,7 +96,7 @@ const productController = {
   deleteProduct: async (req, res) => {
     try {
       const prodId = req.params.id
-      const response = await productDB.deleteById(prodId)
+      const response = await productDAO.deleteById(prodId)
 
       if (!response) {
         res.send(`The product with ID ${prodId} does not exist.`)
@@ -111,4 +110,4 @@ const productController = {
 }
 
 //----------* EXPORTS CONTROLLER *----------//
-module.exports = productController
+export default productController

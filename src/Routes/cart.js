@@ -1,7 +1,7 @@
-//----------* REQUIRE'S *----------//
-const { Router } = require('express')
+//----------* IMPORTS *----------//
+import { Router } from 'express'
+import cartController from '../Controllers/cartController'
 const router = new Router()
-const cartController = require('../Controllers/cartController')
 
 //----------* CART ROUTES *----------//
 // Get Cart List
@@ -26,4 +26,4 @@ router.delete('/:id/productos/:id_prod', cartController.deleteProductFromCart)
 router.delete('/:id', cartController.emptyCart)
 
 //----------* EXPORTS ROUTER *----------//
-module.exports = router
+export default router

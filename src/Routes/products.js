@@ -1,8 +1,8 @@
-//----------* REQUIRE'S *----------//
-const { Router } = require('express')
+//----------* IMPORTS *----------//
+import { Router } from 'express'
+import productController from '../Controllers/productController'
+import userAuthMW from '../Middlewares/userAuth'
 const router = new Router()
-const productController = require('../Controllers/productController')
-const userAuthMW = require('../Middlewares/userAuth')
 
 //----------* PRODUCT ROUTES *----------//
 // Get Product List
@@ -21,4 +21,4 @@ router.put('/:id', userAuthMW.adminAuth, productController.editProduct)
 router.delete('/:id', userAuthMW.adminAuth, productController.deleteProduct)
 
 //----------* EXPORTS ROUTER *----------//
-module.exports = router
+export default router

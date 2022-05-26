@@ -1,7 +1,7 @@
-//----------* REQUIRE'S *----------//
-const { Router } = require('express')
+//----------* IMPORTS *----------//
+import { Router } from 'express'
+import userAuthMW from '../Middlewares/userAuth'
 const router = new Router()
-const userAuthMW = require('../Middlewares/userAuth')
 
 //----------* CART ROUTES *----------//
 // Admin User Login
@@ -11,4 +11,4 @@ router.get('/login', userAuthMW.login)
 router.get('/logout', userAuthMW.logout)
 
 //----------* EXPORTS ROUTER *----------//
-module.exports = router
+export default router
