@@ -3,7 +3,7 @@ import express from 'express'
 import { mainRouter } from './Routes/main.js'
 import { productRouter } from './Routes/products.js'
 import { cartRouter } from './Routes/cart'
-// Ejemplo ¬
+// Temp Example ¬
 import { personasRouter } from './Routes/personasRouter.js'
 
 //----------* EXPRESS() *----------//
@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/api', mainRouter)
 app.use('/api/productos', productRouter)
 app.use('/api/carritos', cartRouter)
-// Ejemplo ¬
+// Temp Example ¬
 app.use('/api/personas', personasRouter)
 
 // Not Implemented
