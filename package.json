@@ -7,9 +7,9 @@
   "scripts": {
     "start": "node .",
     "dev": "nodemon .",
-    "start:json": "DB=json node .",
-    "start:mongodb": "DB=mongodb node .",
-    "start:firebase": "DB=firebase node ."
+    "start:json": "cross-env DB_ENV=json node .",
+    "start:mongodb": "cross-env DB_ENV=mongodb node .",
+    "start:firebase": "cross-env DB_ENV=firebase node ."
   },
   "repository": {
     "type": "git",
@@ -27,5 +27,8 @@
     "firebase-admin": "^10.2.0",
     "mongodb": "^4.6.0",
     "mongoose": "^6.3.3"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }
