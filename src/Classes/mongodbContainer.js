@@ -3,7 +3,18 @@ import mongoose from 'mongoose'
 import config from '../config.js'
 
 //----------* MONGOOSE CONNECTION *----------//
-await mongoose.connect(config.mongodb.cnxStr, config.mongodb.options)
+
+try {
+  await mongoose.connect(config.mongodb.cnxStr, config.mongodb.options, () =>
+    console.log('Mongoose is connected')
+  )
+} catch (error) {
+  console.log('could not connect')
+}
+
+const dbConnection = mongoose.connection
+dbConnection.on('error', (err) => console.log(`Connection error ${err}`))
+dbConnection.once('open', () => console.log('Connected to DB!'))
 
 //----------* MONGODB-CONTAINER CLASS *----------//
 class MongoDBContainer {

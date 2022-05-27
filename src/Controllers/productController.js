@@ -1,5 +1,5 @@
 //----------* IMPORTS *----------//
-import { productDAO } from '../Daos/products/index'
+import { productDAO } from '../Daos/products/index.js'
 
 //----------* PRODUCT CONTROLLER *----------//
 const productController = {

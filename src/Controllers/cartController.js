@@ -1,6 +1,6 @@
 //----------* IMPORTS *----------//
-import { productDAO } from '../Daos/products/index'
-import { cartDAO } from '../Daos/carts/index'
+import { productDAO } from '../Daos/products/index.js'
+import { cartDAO } from '../Daos/carts/index.js'
 
 //----------* CART CONTROLLER *----------//
 const cartController = {

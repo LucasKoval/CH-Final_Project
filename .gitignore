@@ -19,6 +19,8 @@
 .env.test.local
 .env.production.local
 .prettierrc
+package-lock.json
+creds.js
 
 npm-debug.log*
 yarn-debug.log*
