@@ -1,4 +1,4 @@
-import FileSystemContainer from '../../Classes/FileSystemContainer'
+import FileSystemContainer from '../../Classes/FileSystemContainer.js'
 
 class ProductDAOFileSystem extends FileSystemContainer {
   constructor(fileName) {

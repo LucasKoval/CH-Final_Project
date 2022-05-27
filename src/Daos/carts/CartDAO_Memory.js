@@ -1,4 +1,4 @@
-import MemoryContainer from '../../Classes/MemoryContainer'
+import MemoryContainer from '../../Classes/MemoryContainer.js'
 
 class CartDAOMemory extends MemoryContainer {}
 

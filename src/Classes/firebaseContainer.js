@@ -2,7 +2,7 @@
 import admin from 'firebase-admin'
 import config from '../config.js'
 // Temp import ¬
-import serviceAccount from 'path/to/serviceAccountKey.json'
+// import serviceAccount from 'path/to/serviceAccountKey.json'
 
 //----------* FIREBASE CONNECTION *----------//
 admin.initializeApp({

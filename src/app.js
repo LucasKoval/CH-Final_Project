@@ -1,10 +1,8 @@
 //----------* IMPORTS *----------//
 import express from 'express'
-import { mainRouter } from './Routes/main.js'
-import { productRouter } from './Routes/products.js'
-import { cartRouter } from './Routes/cart'
-// Temp Example ¬
-import { personasRouter } from './Routes/personasRouter.js'
+import mainRouter from './Routes/main.js'
+import productRouter from './Routes/products.js'
+import cartRouter from './Routes/cart.js'
 
 //----------* EXPRESS() *----------//
 const app = express()
@@ -17,8 +15,6 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/api', mainRouter)
 app.use('/api/productos', productRouter)
 app.use('/api/carritos', cartRouter)
-// Temp Example ¬
-app.use('/api/personas', personasRouter)
 
 // Not Implemented
 /* app.all('*', (req, res) => {

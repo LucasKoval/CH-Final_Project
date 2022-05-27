@@ -1,7 +1,7 @@
 let productDAO
 
 switch (process.env.DB) {
-  case 'json':
+  /*case 'json':
     const { default: ProductDAOFileSystem } = await import('./ProductDAO_FileSystem.js')
     productDAO = new ProductDAOFileSystem('products')
     break
@@ -16,6 +16,10 @@ switch (process.env.DB) {
   default:
     const { default: ProductDAOMemory } = await import('./ProductDAO_Memory.js')
     productDAO = new ProductDAOMemory()
+    break*/
+  default:
+    const { default: ProductDAOMongoDB } = await import('./ProductDAO_MongoDB.js')
+    productDAO = new ProductDAOMongoDB()
     break
 }
 
