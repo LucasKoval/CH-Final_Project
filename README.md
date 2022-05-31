@@ -2,10 +2,6 @@
 
 Developed by [Lucas Koval](https://lucaskovaldev.com/) for the Final Project at CoderHouse.
 
-## `APP URL (Glitch)`
-
-[https://foggy-climbing-titanium.glitch.me/](https://foggy-climbing-titanium.glitch.me/)
-
 ## `Available Scripts`
 
 In the project root directory, you can run:

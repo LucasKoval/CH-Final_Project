@@ -20,5 +20,8 @@ productRouter.put('/:id', userAuthMW.adminAuth, productController.editProduct)
 // Delete Product by ID
 productRouter.delete('/:id', userAuthMW.adminAuth, productController.deleteProduct)
 
+// Delete Product List
+productRouter.delete('/', userAuthMW.adminAuth, productController.deleteProductList)
+
 //----------* EXPORTS ROUTER *----------//
 export default productRouter
