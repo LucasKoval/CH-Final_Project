@@ -75,12 +75,12 @@ const cartController = {
       const cartFound = await cartDAO.getById(cartId)
       const productFound = await productDAO.getById(prodId)
 
-      if (!cartFound) {
+      if (!cartFound || !cartFound.length) {
         res.send({ error: 'Cart not found.' })
-      } else if (!productFound) {
+      } else if (!productFound || !productFound.length) {
         res.send({ error: 'Product not found.' })
       } else {
-        await cartDAO.addItemInto(cartFound.id, productFound)
+        await cartDAO.addItemInto(cartId, productFound)
         const updatedCart = await cartDAO.getById(cartId)
         res.json(updatedCart)
       }
@@ -97,12 +97,12 @@ const cartController = {
       const cartFound = await cartDAO.getById(cartId)
       const productFound = await productDAO.getById(prodId)
 
-      if (!cartFound) {
+      if (!cartFound || !cartFound.length) {
         res.send({ error: 'Cart not found.' })
-      } else if (!productFound) {
+      } else if (!productFound || !productFound.length) {
         res.send({ error: 'Product not found.' })
       } else {
-        await cartDAO.removeItemFrom(cartFound.id, productFound.id)
+        await cartDAO.removeItemFrom(cartId, prodId)
         const updatedCart = await cartDAO.getById(cartId)
         res.json(updatedCart)
       }
@@ -116,7 +116,7 @@ const cartController = {
       const cartId = req.params.id
       const cartFound = await cartDAO.getById(cartId)
 
-      if (!cartFound) {
+      if (!cartFound || !cartFound.length) {
         res.send({ error: 'Cart not found.' })
       } else {
         await cartDAO.emptyContainer(cartId)

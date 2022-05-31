@@ -85,37 +85,39 @@ class MongoDBContainer {
 
   async addItemInto(containerId, object) {
     try {
-      let allItems = await this.readFile()
-      let itemFound = allItems.find((item) => item.id === Number(containerId))
-      itemFound.productos.push(object)
-      allItems = allItems.map((item) => (item.id !== itemFound.id ? item : itemFound))
-      await this.writeFile(allItems)
+      await this.collection.updateOne({ id: containerId }, { $push: { productos: object[0] } })
     } catch (error) {
-      console.log(`ERROR: ${error}`)
+      throw new Error(`Error adding item into: ${error}`)
     }
   }
 
   async removeItemFrom(containerId, objectId) {
     try {
-      let allItems = await this.readFile()
-      let itemFound = allItems.find((item) => item.id === Number(containerId))
-      itemFound.productos = itemFound.productos.filter((item) => item.id !== Number(objectId))
-      allItems = allItems.map((item) => (item.id !== itemFound.id ? item : itemFound))
-      await this.writeFile(allItems)
+      await this.collection.updateOne(
+        { id: containerId },
+        {
+          $pull: {
+            productos: { id: objectId },
+          },
+        }
+      )
     } catch (error) {
-      console.log(`ERROR: ${error}`)
+      throw new Error(`Error removing item from: ${error}`)
     }
   }
 
   async emptyContainer(containerId) {
     try {
-      let allItems = await this.readFile()
-      let itemFound = allItems.find((item) => item.id === Number(containerId))
-      itemFound.productos = []
-      allItems = allItems.map((item) => (item.id !== itemFound.id ? item : itemFound))
-      await this.writeFile(allItems)
+      await this.collection.updateOne(
+        { id: containerId },
+        {
+          $pullAll: {
+            productos: [{}],
+          },
+        }
+      )
     } catch (error) {
-      console.log(`ERROR: ${error}`)
+      throw new Error(`Error removing item from: ${error}`)
     }
   }
 }
