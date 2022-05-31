@@ -17,7 +17,7 @@ const productController = {
       const prodId = req.params.id
       const productFound = await productDAO.getById(prodId)
 
-      if (!productFound) {
+      if (!productFound || !productFound.length) {
         res.send({ error: 'Product not found.' })
       } else {
         res.json(productFound)
@@ -45,7 +45,7 @@ const productController = {
 
       const getNewId = () => {
         let lastID = 0
-        if (allProducts.length) {
+        if (allProducts && allProducts.length) {
           lastID = allProducts[allProducts.length - 1].id
         }
         return lastID + 1
@@ -84,7 +84,7 @@ const productController = {
           stock: req.body.stock ? req.body.stock : productFound.stock,
         }
 
-        await productDAO.editById(editedProduct)
+        await productDAO.editById(editedProduct, prodId)
 
         res.json(editedProduct)
       }
@@ -103,6 +103,15 @@ const productController = {
       } else {
         res.send(`The product with ID ${prodId} has been removed.`)
       }
+    } catch (error) {
+      console.log(`ERROR: ${error}`)
+    }
+  },
+
+  deleteProductList: async (req, res) => {
+    try {
+      await productDAO.deleteAll()
+      res.send(`All products have been removed.`)
     } catch (error) {
       console.log(`ERROR: ${error}`)
     }
