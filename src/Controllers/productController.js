@@ -17,7 +17,7 @@ const productController = {
       const prodId = req.params.id
       const productFound = await productDAO.getById(prodId)
 
-      if (!productFound || !productFound.length) {
+      if (!productFound) {
         res.send({ error: 'Product not found.' })
       } else {
         res.json(productFound)
@@ -48,7 +48,7 @@ const productController = {
         if (allProducts && allProducts.length) {
           lastID = allProducts[allProducts.length - 1].id
         }
-        return lastID + 1
+        return Number(lastID) + 1
       }
 
       const newProduct = {
