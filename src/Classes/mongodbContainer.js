@@ -117,7 +117,7 @@ class MongoDBContainer {
         }
       )
     } catch (error) {
-      throw new Error(`Error removing item from: ${error}`)
+      throw new Error(`Error removing all items from: ${error}`)
     }
   }
 }

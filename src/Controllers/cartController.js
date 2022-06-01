@@ -52,7 +52,7 @@ const cartController = {
         if (allCarts.length) {
           lastID = allCarts[allCarts.length - 1].id
         }
-        return lastID + 1
+        return Number(lastID) + 1
       }
 
       const newCart = {

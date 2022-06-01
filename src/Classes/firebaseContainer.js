@@ -10,146 +10,125 @@ admin.initializeApp({
   //databaseURL: "https://ch-tpfinal-ecommerce.firebaseio.com"
 })
 const db = admin.firestore()
+console.log('Firestore is connected!')
 
 //----------* FIREBASE-CONTAINER CLASS *----------//
 class FirebaseContainer {
   constructor(collectionName) {
-    this.collection = db.collection(collectionName)
-  }
-
-  async readFile() {
-    try {
-      return JSON.parse(await fs.promises.readFile(`DB/${this.fileName}.json`, 'utf-8'))
-    } catch (error) {
-      console.log(`ERROR: ${error}`)
-    }
-  }
-
-  async writeFile(data) {
-    try {
-      fs.promises.writeFile(`DB/${this.fileName}.json`, JSON.stringify(data), 'utf-8')
-    } catch (error) {
-      console.log(`ERROR: ${error}`)
-    }
+    this.query = db.collection(collectionName)
   }
 
   async getAll() {
     try {
-      const allItems = await this.readFile()
-      return allItems
+      const querySnapshot = await this.query.get()
+      const docs = querySnapshot.docs
+      return docs
     } catch (error) {
-      await this.writeFile([])
-      const allItems = await this.readFile()
-      return allItems
+      throw new Error(`Error getting all items: ${error}`)
     }
   }
 
   async getById(id) {
     try {
-      const allItems = await this.readFile()
-      const itemFound = allItems.find((item) => item.id === Number(id))
-      return itemFound
+      const doc = this.query.doc(id.toString())
+      const docFound = await doc.get()
+      const docData = docFound.data()
+      return docData
     } catch (error) {
-      console.log(`ERROR: ${error}`)
+      throw new Error(`Error getting item: ${error}`)
     }
   }
 
   async addItem(object) {
     try {
-      const allItems = await this.readFile()
-      allItems.push(object)
-      await this.writeFile(allItems)
+      // let doc = this.query.doc()   //--> Para generar automaticamente el ID.
+      const { id, ...remainingObject } = object
+      let doc = this.query.doc(id.toString())
+      await doc.create(object)
     } catch (error) {
-      console.log(`ERROR: ${error}`)
+      throw new Error(`Error adding item: ${error}`)
     }
   }
 
-  async editById(object) {
+  async editById(object, id) {
     try {
-      let allItems = await this.readFile()
-      allItems = allItems.map((item) => (item.id !== object.id ? item : object))
-      await this.writeFile(allItems)
+      const doc = this.query.doc(id.toString())
+      await doc.update(object)
     } catch (error) {
-      console.log(`ERROR: ${error}`)
+      throw new Error(`Error editing item: ${error}`)
     }
   }
 
   async deleteById(id) {
     try {
-      const allItems = await this.readFile()
-      const filteredItemList = allItems.filter((item) => item.id !== Number(id))
-      if (JSON.stringify(allItems) === JSON.stringify(filteredItemList)) {
-        return false
-      } else {
-        await this.writeFile(filteredItemList)
+      const doc = this.query.doc(id.toString())
+      const docFound = await doc.get()
+      const docData = docFound.data()
+      if (docData) {
+        await doc.delete()
         return true
+      } else {
+        return false
       }
     } catch (error) {
-      console.log(`ERROR: ${error}`)
+      throw new Error(`Error deleting item: ${error}`)
     }
   }
 
   async deleteAll() {
     try {
-      await this.writeFile([])
+      const docs = await this.getAll()
+      const ids = docs.map((doc) => doc.id)
+      const promises = ids.map((id) => this.deleteById(id))
+      const results = await Promise.allSettled(promises)
+      const errors = results.filter((result) => result.status == 'rejected')
+      if (errors.length > 0) {
+        throw new Error('Removal was not complete. Try again.')
+      }
     } catch (error) {
-      console.log(`ERROR: ${error}`)
+      throw new Error(`Error deleting all items: ${error}`)
     }
   }
 
   async addItemInto(containerId, object) {
     try {
-      let allItems = await this.readFile()
-      let itemFound = allItems.find((item) => item.id === Number(containerId))
-      itemFound.productos.push(object)
-      allItems = allItems.map((item) => (item.id !== itemFound.id ? item : itemFound))
-      await this.writeFile(allItems)
+      await this.query.updateOne({ id: containerId }, { $push: { productos: object[0] } })
     } catch (error) {
-      console.log(`ERROR: ${error}`)
+      throw new Error(`Error adding item into: ${error}`)
     }
   }
 
   async removeItemFrom(containerId, objectId) {
     try {
-      let allItems = await this.readFile()
-      let itemFound = allItems.find((item) => item.id === Number(containerId))
-      itemFound.productos = itemFound.productos.filter((item) => item.id !== Number(objectId))
-      allItems = allItems.map((item) => (item.id !== itemFound.id ? item : itemFound))
-      await this.writeFile(allItems)
+      await this.query.updateOne(
+        { id: containerId },
+        {
+          $pull: {
+            productos: { id: objectId },
+          },
+        }
+      )
     } catch (error) {
-      console.log(`ERROR: ${error}`)
+      throw new Error(`Error removing item from: ${error}`)
     }
   }
 
   async emptyContainer(containerId) {
     try {
-      let allItems = await this.readFile()
-      let itemFound = allItems.find((item) => item.id === Number(containerId))
-      itemFound.productos = []
-      allItems = allItems.map((item) => (item.id !== itemFound.id ? item : itemFound))
-      await this.writeFile(allItems)
+      await this.query.updateOne(
+        { id: containerId },
+        {
+          $pullAll: {
+            productos: [{}],
+          },
+        }
+      )
     } catch (error) {
-      console.log(`ERROR: ${error}`)
+      throw new Error(`Error removing all items from: ${error}`)
     }
   }
 
-  async borrarAll() {
-    // version fea e ineficiente pero entendible para empezar
-    try {
-      const docs = await this.listarAll()
-      const ids = docs.map((d) => d.id)
-      const promesas = ids.map((id) => this.borrar(id))
-      const resultados = await Promise.allSettled(promesas)
-      const errores = resultados.filter((r) => r.status == 'rejected')
-      if (errores.length > 0) {
-        throw new Error('no se borró todo. volver a intentarlo')
-      }
-    } catch (error) {
-      throw new Error(`Error al borrar: ${error}`)
-    }
-  }
-
-  async desconectar() {}
+  async disconnect() {}
 }
 
 //----------* EXPORTS CLASS *----------//
