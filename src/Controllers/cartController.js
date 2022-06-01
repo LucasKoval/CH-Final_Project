@@ -9,7 +9,7 @@ const cartController = {
       const allCarts = await cartDAO.getAll()
       res.json(allCarts)
     } catch (error) {
-      console.log(`ERROR: ${error}`)
+      console.log(`CartList method: ${error}`)
     }
   },
 
@@ -24,7 +24,7 @@ const cartController = {
         res.json(cartFound)
       }
     } catch (error) {
-      console.log(`ERROR: ${error}`)
+      console.log(`GetCartById method: ${error}`)
     }
   },
 
@@ -39,7 +39,7 @@ const cartController = {
         res.json(cartFound.productos)
       }
     } catch (error) {
-      console.log(`ERROR: ${error}`)
+      console.log(`CartProductList method: ${error}`)
     }
   },
 
@@ -49,7 +49,7 @@ const cartController = {
 
       const getNewId = () => {
         let lastID = 0
-        if (allCarts.length) {
+        if (allCarts && allCarts.length) {
           lastID = allCarts[allCarts.length - 1].id
         }
         return Number(lastID) + 1
@@ -63,7 +63,7 @@ const cartController = {
       await cartDAO.addItem(newCart)
       res.json(newCart.id)
     } catch (error) {
-      console.log(`ERROR: ${error}`)
+      console.log(`CreateNewCart method: ${error}`)
     }
   },
 
@@ -75,9 +75,9 @@ const cartController = {
       const cartFound = await cartDAO.getById(cartId)
       const productFound = await productDAO.getById(prodId)
 
-      if (!cartFound || !cartFound.length) {
+      if (!cartFound) {
         res.send({ error: 'Cart not found.' })
-      } else if (!productFound || !productFound.length) {
+      } else if (!productFound) {
         res.send({ error: 'Product not found.' })
       } else {
         await cartDAO.addItemInto(cartId, productFound)
@@ -85,7 +85,7 @@ const cartController = {
         res.json(updatedCart)
       }
     } catch (error) {
-      console.log(`ERROR: ${error}`)
+      console.log(`AddProductToCart method: ${error}`)
     }
   },
 
@@ -97,9 +97,9 @@ const cartController = {
       const cartFound = await cartDAO.getById(cartId)
       const productFound = await productDAO.getById(prodId)
 
-      if (!cartFound || !cartFound.length) {
+      if (!cartFound) {
         res.send({ error: 'Cart not found.' })
-      } else if (!productFound || !productFound.length) {
+      } else if (!productFound) {
         res.send({ error: 'Product not found.' })
       } else {
         await cartDAO.removeItemFrom(cartId, prodId)
@@ -107,7 +107,7 @@ const cartController = {
         res.json(updatedCart)
       }
     } catch (error) {
-      console.log(`ERROR: ${error}`)
+      console.log(`DeleteProductFromCart method: ${error}`)
     }
   },
 
@@ -116,7 +116,7 @@ const cartController = {
       const cartId = req.params.id
       const cartFound = await cartDAO.getById(cartId)
 
-      if (!cartFound || !cartFound.length) {
+      if (!cartFound) {
         res.send({ error: 'Cart not found.' })
       } else {
         await cartDAO.emptyContainer(cartId)
@@ -124,7 +124,7 @@ const cartController = {
         res.json(updatedCart)
       }
     } catch (error) {
-      console.log(`ERROR: ${error}`)
+      console.log(`EmptyCart method: ${error}`)
     }
   },
 }

@@ -1,13 +1,11 @@
 //----------* IMPORTS *----------//
 import admin from 'firebase-admin'
+import { FieldValue } from 'firebase-admin/firestore'
 import config from '../config.js'
-// Temp import ¬
-// import serviceAccount from 'path/to/serviceAccountKey.json'
 
 //----------* FIREBASE CONNECTION *----------//
 admin.initializeApp({
   credential: admin.credential.cert(config.firebase),
-  //databaseURL: "https://ch-tpfinal-ecommerce.firebaseio.com"
 })
 const db = admin.firestore()
 console.log('Firestore is connected!')
@@ -92,7 +90,9 @@ class FirebaseContainer {
 
   async addItemInto(containerId, object) {
     try {
-      await this.query.updateOne({ id: containerId }, { $push: { productos: object[0] } })
+      await this.query
+        .doc(containerId.toString())
+        .update('productos', FieldValue.arrayUnion(object), { merge: true })
     } catch (error) {
       throw new Error(`Error adding item into: ${error}`)
     }
@@ -100,14 +100,9 @@ class FirebaseContainer {
 
   async removeItemFrom(containerId, objectId) {
     try {
-      await this.query.updateOne(
-        { id: containerId },
-        {
-          $pull: {
-            productos: { id: objectId },
-          },
-        }
-      )
+      await this.query
+        .doc(containerId.toString())
+        .update('productos', FieldValue.arrayRemove(objectId.toString()))
     } catch (error) {
       throw new Error(`Error removing item from: ${error}`)
     }
@@ -115,14 +110,11 @@ class FirebaseContainer {
 
   async emptyContainer(containerId) {
     try {
-      await this.query.updateOne(
-        { id: containerId },
-        {
-          $pullAll: {
-            productos: [{}],
-          },
-        }
-      )
+      this.query.get(containerId).then((res) => {
+        res.forEach((element) => {
+          element.ref.delete()
+        })
+      })
     } catch (error) {
       throw new Error(`Error removing all items from: ${error}`)
     }

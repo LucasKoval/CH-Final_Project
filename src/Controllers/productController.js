@@ -8,7 +8,7 @@ const productController = {
       const allProducts = await productDAO.getAll()
       res.json(allProducts)
     } catch (error) {
-      console.log(`ERROR: ${error}`)
+      console.log(`ProductList method: ${error}`)
     }
   },
 
@@ -23,7 +23,7 @@ const productController = {
         res.json(productFound)
       }
     } catch (error) {
-      console.log(`ERROR: ${error}`)
+      console.log(`GetProductById method: ${error}`)
     }
   },
 
@@ -63,7 +63,7 @@ const productController = {
       await productDAO.addItem(newProduct)
       res.json(newProduct)
     } catch (error) {
-      console.log(`ERROR: ${error}`)
+      console.log(`AddNewProduct method: ${error}`)
     }
   },
 
@@ -89,7 +89,7 @@ const productController = {
         res.json(editedProduct)
       }
     } catch (error) {
-      console.log(`ERROR: ${error}`)
+      console.log(`EditProduct method: ${error}`)
     }
   },
 
@@ -104,7 +104,7 @@ const productController = {
         res.send(`The product with ID ${prodId} has been removed.`)
       }
     } catch (error) {
-      console.log(`ERROR: ${error}`)
+      console.log(`DeleteProduct method: ${error}`)
     }
   },
 
@@ -113,7 +113,7 @@ const productController = {
       await productDAO.deleteAll()
       res.send(`All products have been removed.`)
     } catch (error) {
-      console.log(`ERROR: ${error}`)
+      console.log(`DeleteProductList method: ${error}`)
     }
   },
 }
