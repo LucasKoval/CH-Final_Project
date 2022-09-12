@@ -1,11 +1,14 @@
 //----------* IMPORTS *----------//
 import express from 'express'
+import * as dotenv from 'dotenv'
 import mainRouter from './Routes/main.js'
 import productRouter from './Routes/products.js'
 import cartRouter from './Routes/cart.js'
 
 //----------* EXPRESS() *----------//
 const app = express()
+dotenv.config()
+console.log(process.env.CNX_STR)
 
 //----------* MIDDLEWARES *----------//
 app.use(express.json())
