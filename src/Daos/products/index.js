@@ -1,7 +1,20 @@
-let productDAO
+import config from "../../config.js";
 
-const { default: ProductDAOMongoDB } = await import('./ProductDAO_MongoDB.js')
-productDAO = new ProductDAOMongoDB()
-console.log('Set MongoDB as Database for Products!')
+let productsDao;
 
-export { productDAO }
+switch (config.persistence) {
+	case "mongodb":
+		const { default: ProductsDaoMongodb } = await import("./mongodb/products.mongodb.dao.js");
+		const { default: mongooseProductModel } = await import("./mongodb/products.mongoose.model.js");
+		productsDao = new ProductsDaoMongodb(mongooseProductModel);
+		break;
+	default:
+		throw {
+			message: `Persistence ${config.persistence} not implemented`,
+			code: "persistence_not_implemented",
+			expected: true,
+			status: 500,
+		};
+}
+
+export { productsDao };
