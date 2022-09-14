@@ -1,46 +1,37 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
-export const isAuth = (req, res, next) => {
-  const authHeader = req.headers["authorization"] || req.headers["Authorization"] || "";
 
-  if (!authHeader) {
-    return res.status(401).json({
-      error: "Se requiere autenticacion.",
-      message: "No se encontró token de autenticación.",
-    });
-  }
+export const isAuthenticated = (req, res, next) => {
+	const headerAuthorization = req.headers["authorization"] || req.headers["Authorization"] || "";
 
-  const token = authHeader.split(" ")[1];
+	if (!headerAuthorization) {
+		return res.status(401).json({
+			message: "Debe enviar un Authorization Bearer token en los headers.",
+			code: "Authorization_token_required",
+		});
+	}
 
-  if (!token) {
-    return res.status(401).json({
-      error: "Se requiere autenticacion.",
-      message: "Formato de token invalido.",
-    });
-  }
+	const token = headerAuthorization.split(" ")[1];
 
-  try {
-    req.user = jwt.verify(token, process.env.PRIVATE_WORD_JWT);
-    console.log("SETEANDO req.user EN IS AUTH>>>>", req.user);
+	if (!token) {
+		return res.status(401).json({
+			message: "Token requerido",
+			code: "token_required",
+			status: 401,
+		});
+	}
 
-    // (err, decoded) => {
-    //   console.log("SETEANDO req.user EN IS AUTH>>>>", req.user);
-    //   if (err) {
-    //     return res.status(401).json({
-    //       error: "Se requiere autenticacion.",
-    //       message: "Token invalido.",
-    //     });
-    //   }
-    //   return decoded;
-    // });
-  } catch (ex) {
-    console.log(ex);
-    return res.status(403).json({
-      error: "Token invalido.",
-      message: "Nivel de acceso insuficiente.",
-    });
-  }
+	try {
+		req.user = jwt.verify(token, process.env.JWT_SECRET);
+		console.log("REQ USER >>>>>>>>", req.user);
+	} catch (error) {
+		return res.status(403).json({
+			message: "No autorizado. Token inválido.",
+			code: "not_authorized",
+			status: 403,
+		});
+	}
 
-  next();
+	next();
 };
