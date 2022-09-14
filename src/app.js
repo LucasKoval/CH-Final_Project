@@ -1,6 +1,10 @@
 //----------* IMPORTS *----------//
 import express from 'express'
+import session from 'express-session'
 import * as dotenv from 'dotenv'
+import mongoose from 'mongoose'
+import MongoStore from 'connect-mongo'
+import passport from 'passport'
 import mainRouter from './Routes/main.js'
 import productRouter from './Routes/products.js'
 import cartRouter from './Routes/cart.js'
