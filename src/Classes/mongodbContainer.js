@@ -1,8 +1,6 @@
 //----------* IMPORTS *----------//
 import mongoose from 'mongoose'
 import config from '../Config/mongodb.js'
-console.log('config', config)
-console.log('env', process.env.CNX_STR)
 
 //----------* MONGOOSE CONNECTION *----------//
 try {
