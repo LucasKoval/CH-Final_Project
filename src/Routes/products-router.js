@@ -1,27 +1,25 @@
 //----------* IMPORTS *----------//
 import { Router } from 'express'
-import productController from '../Controllers/productController.js'
-import userAuthMW from '../Middlewares/userAuth.js'
-const productRouter = new Router()
+import productsController from '../Controllers/product-Controller.js'
+import isAuth from '../Middlewares/isAuth.js'
+import isAdmin from '../Middlewares/isAdmin.js'
+const productsRouter = new Router()
 
-//----------* PRODUCT ROUTES *----------//
-// Get Product List
-productRouter.get('/', productController.productList)
+//----------* PRODUCTS ROUTES *----------//
+// Get All Products
+productsRouter.get('/', productsController.getAll)
 
 // Get Product by ID
-productRouter.get('/:id', productController.getProductById)
+productsRouter.get('/:id', productsController.getById)
 
 // Add New Product
-productRouter.post('/', userAuthMW.adminAuth, productController.addNewProduct)
+productsRouter.post('/', isAuth, isAdmin, productsController.create)
 
 // Edit Product by ID
-productRouter.put('/:id', userAuthMW.adminAuth, productController.editProduct)
+productsRouter.put('/:id', isAuth, isAdmin, productsController.updateById)
 
 // Delete Product by ID
-productRouter.delete('/:id', userAuthMW.adminAuth, productController.deleteProduct)
-
-// Delete Product List
-productRouter.delete('/', userAuthMW.adminAuth, productController.deleteProductList)
+productsRouter.delete('/:id', isAuth, isAdmin, productsController.deleteById)
 
 //----------* EXPORTS ROUTER *----------//
-export default productRouter
+export default productsRouter
