@@ -1,33 +1,33 @@
-// import logger from "../../../../../logs/logger.js";
-import UserModel from '../Models/user.model.js'
+//----------* IMPORTS *----------//
+import UserModel from '../Models/user-model.js'
 import { usersDao } from '../Daos/users/index.js'
-import { cartsService } from './carts.service.js'
-import { tokenGenerator, idGenerator, encryptPassword } from '../utils.js'
-
-// import bcrypt from "bcrypt";
+import cartService from './cart-service.js'
+import tokenGenerator from '../Utils/token-generator.js'
+import idGenerator from '../Utils/id-generator.js'
+import encryptPass from '../Utils/encrypt-pass.js'
 
 class UsersService {
-  #usersDao
-  #cartsService
   #userModel
+  #usersDao
+  #cartService
   #tokenGenerator
   #idGenerator
-  #encryptPassword
+  #encryptPass
 
-  constructor(usersDao, UserModel, cartsService, idGenerator, tokenGenerator, encryptPassword) {
-    this.#usersDao = usersDao
+  constructor(UserModel, usersDao, cartService, tokenGenerator, idGenerator, encryptPass) {
     this.#userModel = UserModel
-    this.#cartsService = cartsService
+    this.#usersDao = usersDao
+    this.#cartService = cartService
     this.#tokenGenerator = tokenGenerator
     this.#idGenerator = idGenerator
-    this.#encryptPassword = encryptPassword
+    this.#encryptPass = encryptPass
   }
 
   create = async (req) => {
     try {
       await this.#userExist(req.body.email)
 
-      const userModel = new this.#userModel(this.#idGenerator, this.#encryptPassword, req.body)
+      const userModel = new this.#userModel(this.#idGenerator, this.#encryptPass, req.body)
       const userDto = await userModel.dto()
 
       const newUser = await this.#usersDao.create(userDto)
@@ -39,7 +39,7 @@ class UsersService {
           expected: true,
         }
 
-      const userCart = await this.#cartsService.create(newUser.id)
+      const userCart = await this.#cartService.create(newUser.id)
       if (!userCart)
         throw {
           message: 'Error al crear carrito de usuario.',
@@ -82,11 +82,14 @@ class UsersService {
   }
 }
 
-export const usersService = new UsersService(
-  usersDao,
+const usersService = new UsersService(
   UserModel,
-  cartsService,
-  idGenerator,
+  usersDao,
+  cartService,
   tokenGenerator,
-  encryptPassword
+  idGenerator,
+  encryptPass
 )
+
+//----------* EXPORT SERVICE *----------//
+export default usersService

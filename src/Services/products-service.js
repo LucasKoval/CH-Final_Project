@@ -1,7 +1,7 @@
-// import logger from "../../../../../logs/logger.js";
-import ProductModel from '../models/product.model.js'
+//----------* IMPORTS *----------//
+import ProductModel from '../Models/product-model.js'
 import GetProductModel from '../Models/get-product-model.js'
-import { productsDao } from '../daos/products/index.js'
+import { productsDao } from '../Daos/products/index.js'
 
 // ------------------------------------------------------------
 // TODO: SACAR UUID DE AQUÍ Y HACERLO EN EL MODELO DE PRODUCTOS
@@ -10,15 +10,15 @@ import { v4 as uuidv4 } from 'uuid'
 // ------------------------------------------------------------
 
 class ProductsService {
-  #productsDao
-  #getProductModel
   #newProductModel
+  #getProductModel
+  #productsDao
   #uuidv4
 
-  constructor(productsDao, ProductModel, GetProductModel, uuidv4) {
-    this.#productsDao = productsDao
+  constructor(ProductModel, GetProductModel, productsDao, uuidv4) {
     this.#newProductModel = ProductModel
     this.#getProductModel = GetProductModel
+    this.#productsDao = productsDao
     this.#uuidv4 = uuidv4
   }
 
@@ -145,9 +145,7 @@ class ProductsService {
   }
 }
 
-export const productsService = new ProductsService(
-  productsDao,
-  ProductModel,
-  GetProductModel,
-  uuidv4
-)
+const productsService = new ProductsService(ProductModel, GetProductModel, productsDao, uuidv4)
+
+//----------* EXPORT SERVICE *----------//
+export default productsService

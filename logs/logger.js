@@ -44,5 +44,5 @@ if (process.env.NODE_ENV === 'production') {
   logger = log4js.getLogger()
 }
 
-//----------* EXPORTS LOGGER *----------//
+//----------* EXPORT LOGGER *----------//
 export default logger

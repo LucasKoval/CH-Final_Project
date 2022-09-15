@@ -1,7 +1,9 @@
-import { usersService } from '../Services/users.service.js'
+//----------* IMPORTS *----------//
+import usersService from '../Services/users-service.js'
 
-class Controller {
+class UsersController {
   #usersService
+
   constructor() {
     this.#usersService = usersService
   }
@@ -16,4 +18,7 @@ class Controller {
   }
 }
 
-export const usersController = new Controller(usersService)
+const usersController = new UsersController(usersService)
+
+//----------* EXPORT CONTROLLER *----------//
+export default usersController

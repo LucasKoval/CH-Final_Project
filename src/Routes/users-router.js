@@ -1,14 +1,12 @@
 //----------* IMPORTS *----------//
 import { Router } from 'express'
-import userAuthMW from '../Middlewares/userAuth.js'
-const mainRouter = new Router()
+import usersController from '../Controllers/users-controller.js'
 
-//----------* CART ROUTES *----------//
-// Admin User Login
-mainRouter.get('/login', userAuthMW.login)
+//----------* USERS ROUTES *----------//
+const usersRouter = new Router()
 
-// Admin User Logout
-mainRouter.get('/logout', userAuthMW.logout)
+// Create New User
+usersRouter.post('/', usersController.create)
 
-//----------* EXPORTS ROUTER *----------//
-export default mainRouter
+//----------* EXPORT ROUTER *----------//
+export default usersRouter
