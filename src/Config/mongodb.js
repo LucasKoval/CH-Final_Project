@@ -4,6 +4,7 @@ dotenv.config()
 
 //----------* CONFIG *----------//
 export default {
+  persistence: 'mongodb',
   mongodb: {
     cnxStr: process.env.MONGO_CNX_STR,
     options: {

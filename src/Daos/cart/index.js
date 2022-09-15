@@ -1,12 +1,12 @@
 import config from '../../Config/mongodb.js'
 
-let ordersDao
+let cartDao
 
 switch (config.persistence) {
   case 'mongodb':
-    const { default: ordersDaoMongodb } = await import('./mongodb/orders.mongodb.dao.js')
-    const { default: mongooseOrderModel } = await import('./mongodb/orders.mongoose.model.js')
-    ordersDao = new ordersDaoMongodb(mongooseOrderModel)
+    const { default: CartDaoMongodb } = await import('./mongodb/carts.mongodb.dao.js')
+    const { default: mongooseCartModel } = await import('./mongodb/carts.mongoose.model.js')
+    cartDao = new CartDaoMongodb(mongooseCartModel)
     break
   default:
     throw {
@@ -17,4 +17,4 @@ switch (config.persistence) {
     }
 }
 
-export { ordersDao }
+export { cartDao }

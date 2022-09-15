@@ -1,11 +1,13 @@
 //----------* IMPORTS *----------//
 import express from 'express'
 import dotenv from 'dotenv'
+import mongoose from 'mongoose'
 import { Server as HttpServer } from 'http'
 import { Server as IOServer } from 'socket.io'
 import { engine } from 'express-handlebars'
 import logger from '../logs/logger.js'
 import uploadImg from './Middlewares/multer.js'
+import config from './Config/mongodb.js'
 import loginRouter from './Routes/login-router.js'
 import usersRouter from './Routes/users-router.js'
 import productRouter from './Routes/products-router.js'
@@ -39,6 +41,17 @@ io.on('connection', (socket) => {
     console.log(`Socket connection error: ${error}`)
   }
 })
+
+//----------* MONGOOSE CONNECTION *----------//
+try {
+  await mongoose.connect(config.mongodb.cnxStr, config.mongodb.options, () =>
+    console.log('Mongoose is connected to DB!')
+  )
+} catch (error) {
+  console.log('Mongoose could not connect.')
+}
+const dbConnection = mongoose.connection
+dbConnection.on('error', (error) => console.log(`Connection error: ${error}`))
 
 //----------* ROUTES *----------//
 app.use('/login', loginRouter)

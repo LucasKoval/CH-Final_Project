@@ -1,11 +1,12 @@
 //----------* IMPORTS *----------//
 import { Router } from 'express'
-import productsController from '../Controllers/product-Controller.js'
+import productsController from '../Controllers/products-controller.js'
 import isAuth from '../Middlewares/isAuth.js'
 import isAdmin from '../Middlewares/isAdmin.js'
-const productsRouter = new Router()
 
 //----------* PRODUCTS ROUTES *----------//
+const productsRouter = new Router()
+
 // Get All Products
 productsRouter.get('/', productsController.getAll)
 
@@ -21,5 +22,5 @@ productsRouter.put('/:id', isAuth, isAdmin, productsController.updateById)
 // Delete Product by ID
 productsRouter.delete('/:id', isAuth, isAdmin, productsController.deleteById)
 
-//----------* EXPORTS ROUTER *----------//
+//----------* EXPORT ROUTER *----------//
 export default productsRouter

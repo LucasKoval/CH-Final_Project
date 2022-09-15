@@ -1,23 +1,23 @@
-// import logger from "../../../../../logs/logger.js";
+//----------* IMPORTS *----------//
 import CartModel from '../Models/cart-model.js'
-import { cartsDao } from '../Daos/carts/index.js'
+import { cartDao } from '../Daos/cart/index.js'
 import { productsDao } from '../Daos/products/index.js'
 
 class CartsService {
-  #cartsDao
-  #productsDao
   #cartModel
+  #cartDao
+  #productsDao
 
-  constructor(cartsDao, productsDao, CartModel) {
-    this.#cartsDao = cartsDao
-    this.#productsDao = productsDao
+  constructor(CartModel, cartDao, productsDao) {
     this.#cartModel = CartModel
+    this.#cartDao = cartDao
+    this.#productsDao = productsDao
   }
 
   create = async (id) => {
     try {
       const newCart = new this.#cartModel(id)
-      return await this.#cartsDao.create(newCart.dto)
+      return await this.#cartDao.create(newCart.dto)
     } catch (error) {
       if (!error.expected)
         error = {
@@ -33,7 +33,7 @@ class CartsService {
 
   getProducts = async (req) => {
     try {
-      const cart = await this.#cartsDao.getById(req.user.id)
+      const cart = await this.#cartDao.getById(req.user.id)
       if (!cart)
         throw {
           message: 'Carrito de usuario no existe.',
@@ -65,7 +65,7 @@ class CartsService {
           status: 404,
           expected: true,
         }
-      return this.#cartsDao.addProduct(req.user.id, product)
+      return this.#cartDao.addProduct(req.user.id, product)
     } catch (error) {
       if (!error.expected)
         error = {
@@ -82,7 +82,7 @@ class CartsService {
 
   deleteProduct = async (req) => {
     try {
-      const cart = await this.#cartsDao.getById(req.user.id)
+      const cart = await this.#cartDao.getById(req.user.id)
       if (!cart)
         throw {
           message: 'Carrito de usuario no existe.',
@@ -90,7 +90,7 @@ class CartsService {
           status: 404,
           expected: true,
         }
-      return await this.#cartsDao.deleteProduct(req.user.id, req.params.productId)
+      return await this.#cartDao.deleteProduct(req.user.id, req.params.productId)
     } catch (error) {
       if (!error.expected)
         error = {
@@ -105,4 +105,7 @@ class CartsService {
   }
 }
 
-export const cartsService = new CartsService(cartsDao, productsDao, CartModel)
+const cartsService = new CartsService(CartModel, cartDao, productsDao)
+
+//----------* EXPORT SERVICE *----------//
+export default cartsService

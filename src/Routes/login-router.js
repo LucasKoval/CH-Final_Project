@@ -1,11 +1,12 @@
 //----------* IMPORTS *----------//
 import { Router } from 'express'
 import loginController from '../Controllers/login-controller.js'
-const loginRouter = new Router()
 
 //----------* LOGIN ROUTES *----------//
+const loginRouter = new Router()
+
 // Login User
 loginRouter.post('/', loginController.login)
 
-//----------* EXPORTS ROUTER *----------//
+//----------* EXPORT ROUTER *----------//
 export default loginRouter

@@ -1,21 +1,19 @@
-// TODO: HAY QUE MOSTRAR LOS ERRORES Y GUARDARLOS CON show_error() Y write_error()
-
 export default class GetProductModel {
-	constructor(products) {
-		this.products = products;
-	}
+  constructor(products) {
+    this.products = products
+  }
 
-	get allProductsDto() {
-		const products = this.products.map((product) => {
-			const { name, description, image, price, stock, id } = product;
-			return { id, name, description, image, price, stock };
-		});
-		return JSON.parse(JSON.stringify(products));
-	}
+  get allProductsDto() {
+    const products = this.products.map((product) => {
+      const { name, description, image, price, stock, id } = product
+      return { id, name, description, image, price, stock }
+    })
+    return JSON.parse(JSON.stringify(products))
+  }
 
-	get oneProductDto() {
-		const { name, description, image, price, stock, id } = this.products;
-		const product = { id, name, description, image, price, stock };
-		return JSON.parse(JSON.stringify(product));
-	}
+  get oneProductDto() {
+    const { name, description, image, price, stock, id } = this.products
+    const product = { id, name, description, image, price, stock }
+    return JSON.parse(JSON.stringify(product))
+  }
 }
