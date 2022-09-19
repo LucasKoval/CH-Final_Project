@@ -7,7 +7,7 @@ const isAuth = (req, res, next) => {
 
   if (!headerAuthorization) {
     return res.status(401).json({
-      message: 'Debe enviar un Authorization Bearer token en los headers.',
+      message: 'An Authorization Bearer Token must be provided.',
       code: 'Authorization_token_required',
     })
   }
@@ -16,7 +16,7 @@ const isAuth = (req, res, next) => {
 
   if (!token) {
     return res.status(401).json({
-      message: 'Token requerido',
+      message: 'Token required.',
       code: 'token_required',
       status: 401,
     })
@@ -24,10 +24,9 @@ const isAuth = (req, res, next) => {
 
   try {
     req.user = jwt.verify(token, process.env.JWT_SECRET)
-    console.log('REQ USER >>>>>>>>', req.user)
   } catch (error) {
     return res.status(403).json({
-      message: 'No autorizado. Token inválido.',
+      message: 'Not authorized. Invalid Token.',
       code: 'not_authorized',
       status: 403,
     })

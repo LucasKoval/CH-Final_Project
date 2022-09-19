@@ -2,17 +2,21 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
+import exphbs from 'express-handlebars'
 import { Server as HttpServer } from 'http'
 import { Server as IOServer } from 'socket.io'
-import { engine } from 'express-handlebars'
+import { dirname, join } from 'path'
+import { fileURLToPath } from 'url'
 import logger from '../logs/logger.js'
-import uploadImg from './Middlewares/multer.js'
 import config from './Config/mongodb.js'
+import chatRouter from './Routes/chat-router.js'
+import infoRouter from './Routes/info-router.js'
 import loginRouter from './Routes/login-router.js'
 import usersRouter from './Routes/users-router.js'
-import productRouter from './Routes/products-router.js'
+import imageRouter from './Routes/image-router.js'
+import productRouter from './Routes/product-router.js'
 import cartRouter from './Routes/cart-router.js'
-import ordersRouter from './Routes/orders-router.js'
+import orderRouter from './Routes/order-router.js'
 
 //----------* EXPRESS() *----------//
 const app = express()
@@ -21,26 +25,20 @@ const io = new IOServer(httpServer)
 dotenv.config()
 
 //----------* VIEW ENGINE SETUP *----------//
-const handlebarsConfig = {
-  defaultLayout: 'index.html',
-}
-app.engine('handlebars', engine(handlebarsConfig))
-app.set('view engine', 'handlebars')
+app.set('view engine', '.handlebars')
+app.set('views', dirname(fileURLToPath(import.meta.url)) + '/views')
+const hbs = exphbs.create({
+  defaultLayout: 'index',
+  layoutsDir: join(app.get('views'), 'layouts'),
+  partialsDir: join(app.get('views'), 'partials'),
+  extname: '.handlebars',
+})
+app.engine('.handlebars', hbs.engine)
 
 //----------* MIDDLEWARES *----------//
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
-
-//----------* SOCKET IO *----------//
-io.on('connection', (socket) => {
-  try {
-    app.get('/', (req, res) => res.sendFile(__dirname + '/index.html'))
-    console.log('New client connected!')
-  } catch (error) {
-    console.log(`Socket connection error: ${error}`)
-  }
-})
 
 //----------* MONGOOSE CONNECTION *----------//
 try {
@@ -53,19 +51,29 @@ try {
 const dbConnection = mongoose.connection
 dbConnection.on('error', (error) => console.log(`Connection error: ${error}`))
 
-//----------* ROUTES *----------//
-app.use('/login', loginRouter)
-app.use('/api/users', usersRouter)
-app.use('/api/products', productRouter)
-app.use('/api/shoppingcartproducts', cartRouter)
-app.use('/api/orders', ordersRouter)
-app.post('/api/images', uploadImg.single('image'), (req, res) => {
-  res.status(200).json({
-    status: 200,
-    code: 'upload_img_success',
-    public_url: `http://localhost:${PORT}/images/${req.file.filename}`,
+//----------* SOCKET IO *----------//
+const chatMessages = []
+io.on('connection', (socket) => {
+  logger.info('New client connected!')
+
+  socket.emit('messages', chatMessages)
+
+  socket.on('message', (data) => {
+    data.date = new Date().toLocaleString()
+    chatMessages.push(data)
+    io.emit('messages', chatMessages)
   })
 })
+
+//----------* ROUTES *----------//
+app.use('/', chatRouter)
+app.use('/info', infoRouter)
+app.use('/login', loginRouter)
+app.use('/api/users', usersRouter)
+app.use('/api/images', imageRouter)
+app.use('/api/products', productRouter)
+app.use('/api/shoppingcartproducts', cartRouter)
+app.use('/api/orders', orderRouter)
 app.all('*', (req, res) => {
   res.status(404).json({
     error: '404 Not Found',
@@ -76,7 +84,7 @@ app.all('*', (req, res) => {
 //----------* SERVER CONFIGURATION *----------//
 const PORT = process.env.PORT || 8080
 const server = httpServer.listen(PORT, () => {
-  logger.log(`Server listening on port ${server.address().port}`)
+  logger.info(`Server listening on port ${server.address().port}`)
   console.log(`Server running on: http://localhost:${server.address().port}/`)
 })
-server.on('error', (error) => logger.log(`Server error: ${error}`))
+server.on('error', (error) => logger.error(`Server error: ${error}`))

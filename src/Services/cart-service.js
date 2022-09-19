@@ -1,6 +1,6 @@
 //----------* IMPORTS *----------//
 import CartModel from '../Models/cart-model.js'
-import { cartDao } from '../Daos/cart/index.js'
+import { cartDao } from '../Daos/carts/index.js'
 import { productsDao } from '../Daos/products/index.js'
 
 class CartsService {

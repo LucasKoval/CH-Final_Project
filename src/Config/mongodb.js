@@ -2,7 +2,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
-//----------* CONFIG *----------//
+//----------* CONFIG MONGODB *----------//
 export default {
   persistence: 'mongodb',
   mongodb: {
