@@ -1,6 +1,6 @@
 //----------* IMPORTS *----------//
 import { Router } from 'express'
-import productsController from '../Controllers/products-controller.js'
+import productController from '../Controllers/product-controller.js'
 import isAuth from '../Middlewares/is-auth.js'
 import isAdmin from '../Middlewares/is-admin.js'
 
@@ -8,19 +8,19 @@ import isAdmin from '../Middlewares/is-admin.js'
 const productRouter = new Router()
 
 // Get All Products
-productRouter.get('/', productsController.getAll)
+productRouter.get('/', productController.getAll)
 
 // Get Product by ID
-productRouter.get('/:id', productsController.getById)
+productRouter.get('/:id', productController.getById)
 
 // Add New Product
-productRouter.post('/', isAuth, isAdmin, productsController.create)
+productRouter.post('/', isAuth, isAdmin, productController.create)
 
 // Edit Product by ID
-productRouter.put('/:id', isAuth, isAdmin, productsController.updateById)
+productRouter.put('/:id', isAuth, isAdmin, productController.updateById)
 
 // Delete Product by ID
-productRouter.delete('/:id', isAuth, isAdmin, productsController.deleteById)
+productRouter.delete('/:id', isAuth, isAdmin, productController.deleteById)
 
 //----------* EXPORT ROUTER *----------//
 export default productRouter

@@ -1,16 +1,16 @@
 //----------* IMPORTS *----------//
-import productsService from '../Services/products-service.js'
+import productService from '../Services/product-service.js'
 
-class ProductsController {
-  #productsService = productsService
+class ProductController {
+  #productService = productService
 
   constructor() {
-    this.#productsService = productsService
+    this.#productService = productService
   }
 
   create = async (req, res) => {
     try {
-      const product = await this.#productsService.create(req)
+      const product = await this.#productService.create(req)
       res.status(201).json(product)
     } catch (error) {
       res.status(error.status).json(error)
@@ -19,7 +19,7 @@ class ProductsController {
 
   getAll = async (req, res) => {
     try {
-      const products = await this.#productsService.getAll()
+      const products = await this.#productService.getAll()
       res.status(201).json(products)
     } catch (error) {
       res.status(error.status).json(error)
@@ -28,7 +28,7 @@ class ProductsController {
 
   getById = async (req, res) => {
     try {
-      const product = await this.#productsService.getById(req)
+      const product = await this.#productService.getById(req)
       res.status(201).json(product)
     } catch (error) {
       res.status(error.status).json(error)
@@ -37,7 +37,7 @@ class ProductsController {
 
   updateById = async (req, res) => {
     try {
-      const updatedProduct = await this.#productsService.updateById(req)
+      const updatedProduct = await this.#productService.updateById(req)
       res.status(201).json(updatedProduct)
     } catch (error) {
       res.status(error.status).json(error)
@@ -46,7 +46,7 @@ class ProductsController {
 
   deleteById = async (req, res) => {
     try {
-      await this.#productsService.deleteById(req)
+      await this.#productService.deleteById(req)
       res.status(204).json()
     } catch (error) {
       res.status(error.status).json(error)
@@ -54,7 +54,7 @@ class ProductsController {
   }
 }
 
-const productsController = new ProductsController(productsService)
+const productController = new ProductController(productService)
 
 //----------* EXPORT CONTROLLER *----------//
-export default productsController
+export default productController
