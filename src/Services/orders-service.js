@@ -1,6 +1,6 @@
 //----------* IMPORTS *----------//
 import OrderModel from '../Models/order-model.js'
-import { cartDao } from '../Daos/cart/index.js'
+import { cartDao } from '../Daos/carts/index.js'
 import { ordersDao } from '../Daos/orders/index.js'
 import { transporter } from '../Senders/email/gmail.js'
 import { newOrderEmailTemplate } from '../Senders/email/templates/new-order-email.template.js'

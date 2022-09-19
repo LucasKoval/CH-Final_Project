@@ -1,0 +1,62 @@
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
+
+    <title>Chat Room</title>
+
+</head>
+
+<body>
+    {{> chat_form}}
+
+    {{{body}}}
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"
+        integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg=="
+        crossorigin="anonymous"></script>
+    {{!-- <script type="text/javascript" src="js/sockects.js"></script> --}}
+    <script type="text/javascript">
+        const socket = io();
+        const form = document.getElementById("form");
+        
+    	form.addEventListener("submit", function (e) {
+     		e.preventDefault();
+     		const message = {
+     			name: form.name.value,
+     			message: form.message.value,
+     		};
+     		console.log(message);
+     		socket.emit("message", message);
+     		form.reset();
+     	});
+
+        socket.on("messages", async (messages) => {
+	        console.table(messages);
+            const list = document.getElementById("messages-list");
+            list.innerHTML = "";
+            messages.forEach((message) => {
+                const template = `<tr>
+						<td class="text-center">
+							${message.name}
+						</td>
+						<td class="text-center">
+							${message.message}
+						</td>
+						<td class="text-center">
+							${message.date}
+						</td>
+					</tr>`;
+                list.innerHTML += template;
+            });
+        });
+	       
+    </script>
+
+</body>
+
+</html>

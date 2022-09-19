@@ -1,0 +1,21 @@
+<h1 class='text-center mt-2'>Chat Room</h1>
+<div class='container mx-auto'>
+  <form
+    id='form'
+    action='/messages'
+    method='POST'
+    class='bg-light p-4 rounded border border-secondary my-4'
+  >
+    <div class='mb-2 row'>
+
+      <label for='name' class='col-sm-12 col-md-6 form-label'>Nombre</label>
+      <input type='text' class='form-control col' name='name' required />
+
+      <label for='message' class='col-sm-12 col-md-6 form-label'>Mensaje</label>
+      <input type='text' id='inputMessage' class='form-control col' name='message' required />
+
+      <button class='btn btn-success w-100 text-center mt-3' type='submit'>Enviar</button>
+    </div>
+
+  </form>
+</div>

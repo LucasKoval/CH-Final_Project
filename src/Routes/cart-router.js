@@ -1,7 +1,7 @@
 //----------* IMPORTS *----------//
 import { Router } from 'express'
 import cartController from '../Controllers/cart-controller.js'
-import isAuth from '../Middlewares/isAuth.js'
+import isAuth from '../Middlewares/is-auth.js'
 
 //----------* CART ROUTES *----------//
 const cartRouter = new Router()
