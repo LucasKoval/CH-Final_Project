@@ -26,7 +26,7 @@ dotenv.config()
 
 //----------* VIEW ENGINE SETUP *----------//
 app.set('view engine', '.handlebars')
-app.set('views', dirname(fileURLToPath(import.meta.url)) + '/Views')
+app.set('views', dirname(fileURLToPath(import.meta.url)) + '/view')
 const hbs = exphbs.create({
   defaultLayout: 'index',
   layoutsDir: join(app.get('views'), 'layouts'),
