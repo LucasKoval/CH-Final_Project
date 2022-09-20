@@ -10,7 +10,7 @@ export default class CartModel {
   set id(id) {
     if (!id)
       throw {
-        message: 'El campo id de carrito es requerido.',
+        message: 'The cart ID field is required.',
         code: 'id_required',
         expected: true,
         status: 400,
@@ -18,7 +18,7 @@ export default class CartModel {
 
     if (typeof id !== 'string')
       throw {
-        message: 'El id debe ser un string.',
+        message: 'The ID must be a string.',
         code: 'id_must_be_string',
         status: 400,
         expected: true,

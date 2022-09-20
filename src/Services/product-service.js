@@ -2,14 +2,9 @@
 import ProductModel from '../Models/product-model.js'
 import GetProductModel from '../Models/get-product-model.js'
 import { productsDao } from '../Daos/products/index.js'
-
-// ------------------------------------------------------------
-// TODO: SACAR UUID DE AQUÍ Y HACERLO EN EL MODELO DE PRODUCTOS
-// ------------------------------------------------------------
 import { v4 as uuidv4 } from 'uuid'
-// ------------------------------------------------------------
 
-class ProductsService {
+class ProductService {
   #newProductModel
   #getProductModel
   #productsDao
@@ -29,12 +24,9 @@ class ProductsService {
       const newProductDto = newProduct.dto
       return await this.#productsDao.create({ ...newProductDto, id: uuid })
     } catch (error) {
-      // logger.error(error);
-
-      // Si el error no es ninguno de los esperados, enviamos uno genérico
       if (!error.expected)
         error = {
-          message: 'Error al crear nuevo producto.',
+          message: 'Error creating new product.',
           code: 'post_new_product_error',
           status: 500,
         }
@@ -50,11 +42,9 @@ class ProductsService {
       const products = new this.#getProductModel(allProducts)
       return products.allProductsDto
     } catch (error) {
-      // logger.error(error);
-      // Si el error no es ninguno de los esperados, enviamos uno genérico
       if (!error.expected)
         error = {
-          message: 'Error al obtener todos los productos.',
+          message: 'Failed to get all products.',
           code: 'get_all_products_error',
           status: 500,
         }
@@ -70,7 +60,7 @@ class ProductsService {
 
       if (!product)
         throw {
-          message: 'Producto no encontrado.',
+          message: 'Product not found.',
           code: 'product_not_found',
           status: 404,
           expected: true,
@@ -78,11 +68,9 @@ class ProductsService {
       const productDto = new this.#getProductModel(product)
       return productDto.oneProductDto
     } catch (error) {
-      // logger.error(error);
-      // Si el error no es ninguno de los esperados, enviamos uno genérico
       if (!error.expected)
         error = {
-          message: 'Error al obtener producto por id.',
+          message: 'Error getting product by id.',
           code: 'get_product_by_id_error',
           status: 500,
         }
@@ -97,18 +85,16 @@ class ProductsService {
       const product = await this.#productsDao.getById(req.params.id)
       if (!product)
         throw {
-          message: 'Producto no encontrado.',
+          message: 'Product not found.',
           code: 'product_not_found',
           status: 404,
           expected: true,
         }
       return await this.#productsDao.updateById(req.params.id, req.body)
     } catch (error) {
-      // logger.error(error);
-      // Si el error no es ninguno de los esperados, enviamos uno genérico
       if (!error.expected)
         error = {
-          message: 'Error al actualizar producto.',
+          message: 'Error updating product.',
           code: 'update_product_by_id_error',
           status: 500,
         }
@@ -123,18 +109,16 @@ class ProductsService {
       const product = await this.#productsDao.getById(req.params.id)
       if (!product)
         throw {
-          message: 'Producto no encontrado.',
+          message: 'Product not found.',
           code: 'product_not_found',
           status: 404,
           expected: true,
         }
       return await this.#productsDao.deleteById(req.params.id)
     } catch (error) {
-      // logger.error(error);
-      // Si el error no es ninguno de los esperados, enviamos uno genérico
       if (!error.expected)
         error = {
-          message: 'Error al eliminar producto por id.',
+          message: 'Error removing product by id.',
           code: 'delete_product_by_id_error',
           status: 500,
         }
@@ -145,7 +129,7 @@ class ProductsService {
   }
 }
 
-const productsService = new ProductsService(ProductModel, GetProductModel, productsDao, uuidv4)
+const productService = new ProductService(ProductModel, GetProductModel, productsDao, uuidv4)
 
 //----------* EXPORT SERVICE *----------//
-export default productsService
+export default productService

@@ -26,7 +26,7 @@ class LoginService {
       const login = await this.#passChecker(loginDto.password, user.password)
       if (!login) {
         throw {
-          message: 'Contraseña incorrecta',
+          message: 'Invalid password.',
           code: 'invalid_password',
           status: 400,
           expected: true,
@@ -39,7 +39,7 @@ class LoginService {
     } catch (error) {
       if (!error.expected)
         error = {
-          message: 'Error al loguearse.',
+          message: 'Error logging in.',
           code: 'login_error',
           status: 500,
         }

@@ -6,7 +6,7 @@ import { transporter } from '../Senders/email/gmail.js'
 import { newOrderEmailTemplate } from '../Senders/email/templates/new-order-email.template.js'
 import idGenerator from '../Utils/id-generator.js'
 
-class OrdersService {
+class OrderService {
   #orderModel
   #cartDao
   #ordersDao
@@ -29,7 +29,7 @@ class OrdersService {
       const newOrder = await this.#ordersDao.create(orderDto)
       if (!newOrder)
         throw {
-          message: 'Error al crear orden.',
+          message: 'Error creating order.',
           code: 'create_order_error',
           status: 500,
           expected: true,
@@ -44,7 +44,7 @@ class OrdersService {
       console.log({ error })
       if (!error.expected)
         error = {
-          message: 'Error al crear orden.',
+          message: 'Error creating order.',
           code: 'create_order_error',
           status: 500,
         }
@@ -62,7 +62,7 @@ class OrdersService {
       console.log({ error })
       if (!error.expected)
         error = {
-          message: 'Error al obtener todos los productos.',
+          message: 'Failed to get all products.',
           code: 'get_all_products_error',
           status: 500,
         }
@@ -80,7 +80,7 @@ class OrdersService {
       console.log({ error })
       if (!error.expected)
         error = {
-          message: 'Error al enviar notificación.',
+          message: 'Error sending notification.',
           code: 'send_notification_error',
           status: 500,
         }
@@ -91,7 +91,7 @@ class OrdersService {
   }
 }
 
-const ordersService = new OrdersService(OrderModel, cartDao, ordersDao, idGenerator)
+const orderService = new OrderService(OrderModel, cartDao, ordersDao, idGenerator)
 
 //----------* EXPORT SERVICE *----------//
-export default ordersService
+export default orderService

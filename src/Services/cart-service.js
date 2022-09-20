@@ -3,15 +3,15 @@ import CartModel from '../Models/cart-model.js'
 import { cartDao } from '../Daos/carts/index.js'
 import { productsDao } from '../Daos/products/index.js'
 
-class CartsService {
+class CartService {
   #cartModel
   #cartDao
-  #productsDao
+  #productDao
 
   constructor(CartModel, cartDao, productsDao) {
     this.#cartModel = CartModel
     this.#cartDao = cartDao
-    this.#productsDao = productsDao
+    this.#productDao = productsDao
   }
 
   create = async (id) => {
@@ -21,7 +21,7 @@ class CartsService {
     } catch (error) {
       if (!error.expected)
         error = {
-          message: 'Error al crear nuevo carrito.',
+          message: 'Error creating new cart.',
           code: 'create_new_cart_error',
           status: 500,
         }
@@ -36,7 +36,7 @@ class CartsService {
       const cart = await this.#cartDao.getById(req.user.id)
       if (!cart)
         throw {
-          message: 'Carrito de usuario no existe.',
+          message: 'User cart does not exist.',
           code: 'user_cart_not_found',
           status: 404,
           expected: true,
@@ -45,7 +45,7 @@ class CartsService {
     } catch (error) {
       if (!error.expected)
         error = {
-          message: 'Error al obtener todos los productos.',
+          message: 'Failed to get all products.',
           code: 'get_all_products_error',
           status: 500,
         }
@@ -57,10 +57,10 @@ class CartsService {
 
   addProduct = async (req) => {
     try {
-      const product = await this.#productsDao.getById(req.body.productId)
+      const product = await this.#productDao.getById(req.body.productId)
       if (!product)
         throw {
-          message: 'Producto no existe.',
+          message: 'Product not found.',
           code: 'product_not_found',
           status: 404,
           expected: true,
@@ -69,7 +69,7 @@ class CartsService {
     } catch (error) {
       if (!error.expected)
         error = {
-          message: 'Error al agregar producto al carrito.',
+          message: 'Error adding product to cart.',
           code: 'add_product_to_cart_error',
           expected: true,
           status: 500,
@@ -85,7 +85,7 @@ class CartsService {
       const cart = await this.#cartDao.getById(req.user.id)
       if (!cart)
         throw {
-          message: 'Carrito de usuario no existe.',
+          message: 'User cart does not exist.',
           code: 'user_cart_not_found',
           status: 404,
           expected: true,
@@ -94,7 +94,7 @@ class CartsService {
     } catch (error) {
       if (!error.expected)
         error = {
-          message: 'Error al eliminar producto.',
+          message: 'Error removing product.',
           code: 'delete_product_by_id_error',
           status: 500,
         }
@@ -105,7 +105,7 @@ class CartsService {
   }
 }
 
-const cartsService = new CartsService(CartModel, cartDao, productsDao)
+const cartService = new CartService(CartModel, cartDao, productsDao)
 
 //----------* EXPORT SERVICE *----------//
-export default cartsService
+export default cartService
