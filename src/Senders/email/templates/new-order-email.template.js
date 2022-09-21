@@ -1,4 +1,7 @@
+//----------* IMPORTS *----------//
 import dotenv from 'dotenv'
+
+//----------* CONFIG *----------//
 dotenv.config()
 
 export const newOrderEmailTemplate = (order) => {
@@ -27,13 +30,6 @@ export const newOrderEmailTemplate = (order) => {
 				${products}
 			</ol>
 		`,
-
-    // text: "Este es un mail de prueba desde Node.js",
-    // attachments: [
-    // 	{
-    // 		path: "./nodemailer.png",
-    // 	},
-    // ],
   }
 
   return mailOptions

@@ -12,7 +12,7 @@ import config from './Config/mongodb.js'
 import chatRouter from './Routes/chat-router.js'
 import infoRouter from './Routes/info-router.js'
 import loginRouter from './Routes/login-router.js'
-import usersRouter from './Routes/users-router.js'
+import userRouter from './Routes/user-router.js'
 import imageRouter from './Routes/image-router.js'
 import productRouter from './Routes/product-router.js'
 import cartRouter from './Routes/cart-router.js'
@@ -26,7 +26,7 @@ dotenv.config()
 
 //----------* VIEW ENGINE SETUP *----------//
 app.set('view engine', '.handlebars')
-app.set('views', dirname(fileURLToPath(import.meta.url)) + '/views')
+app.set('views', dirname(fileURLToPath(import.meta.url)) + '/Views')
 const hbs = exphbs.create({
   defaultLayout: 'index',
   layoutsDir: join(app.get('views'), 'layouts'),
@@ -69,7 +69,7 @@ io.on('connection', (socket) => {
 app.use('/', chatRouter)
 app.use('/info', infoRouter)
 app.use('/login', loginRouter)
-app.use('/api/users', usersRouter)
+app.use('/api/users', userRouter)
 app.use('/api/images', imageRouter)
 app.use('/api/products', productRouter)
 app.use('/api/shoppingcartproducts', cartRouter)

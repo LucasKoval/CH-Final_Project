@@ -3,7 +3,7 @@ import { Router } from 'express'
 import imageController from '../Controllers/image-controller.js'
 import uploadImg from '../Middlewares/upload-img.js'
 
-//----------* CHAT ROUTES *----------//
+//----------* IMAGE ROUTES *----------//
 const imageRouter = new Router()
 
 // Upload a Single Image

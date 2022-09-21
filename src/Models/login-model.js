@@ -1,58 +1,58 @@
 export default class LoginModel {
-	#password;
-	#email;
+  #password
+  #email
 
-	constructor({ email, password }) {
-		this.password = password;
-		this.email = email;
-	}
+  constructor({ email, password }) {
+    this.password = password
+    this.email = email
+  }
 
-	set password(password) {
-		if (!password)
-			throw {
-				message: "La contraseña es requerida.",
-				code: "password_required",
-				expected: true,
-				status: 400,
-			};
+  set password(password) {
+    if (!password)
+      throw {
+        message: 'The password is required.',
+        code: 'password_required',
+        expected: true,
+        status: 400,
+      }
 
-		if (typeof password !== "string")
-			throw {
-				message: "La contraseña debe ser un string.",
-				code: "password_must_be_string",
-				status: 400,
-				expected: true,
-			};
+    if (typeof password !== 'string')
+      throw {
+        message: 'The password must be a string.',
+        code: 'password_must_be_string',
+        status: 400,
+        expected: true,
+      }
 
-		this.#password = password;
-	}
+    this.#password = password
+  }
 
-	set email(email) {
-		if (!email)
-			throw {
-				message: "El correo electrónico es requerido.",
-				code: "email_required",
-				expected: true,
-				status: 400,
-			};
+  set email(email) {
+    if (!email)
+      throw {
+        message: 'Email is required.',
+        code: 'email_required',
+        expected: true,
+        status: 400,
+      }
 
-		if (typeof email !== "string")
-			throw {
-				message: "El correo electrónico debe ser un string.",
-				code: "email_must_be_string",
-				status: 400,
-				expected: true,
-			};
+    if (typeof email !== 'string')
+      throw {
+        message: 'The email must be a string.',
+        code: 'email_must_be_string',
+        status: 400,
+        expected: true,
+      }
 
-		this.#email = email;
-	}
+    this.#email = email
+  }
 
-	get dto() {
-		const data = {
-			email: this.#email,
-			password: this.#password,
-		};
+  get dto() {
+    const data = {
+      email: this.#email,
+      password: this.#password,
+    }
 
-		return JSON.parse(JSON.stringify(data));
-	}
+    return JSON.parse(JSON.stringify(data))
+  }
 }

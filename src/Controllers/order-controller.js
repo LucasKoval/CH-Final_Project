@@ -1,16 +1,16 @@
 //----------* IMPORTS *----------//
-import ordersService from '../Services/orders-service.js'
+import orderService from '../Services/order-service.js'
 
-class OrdersController {
-  #ordersService = ordersService
+class OrderController {
+  #orderService = orderService
 
   constructor() {
-    this.#ordersService = ordersService
+    this.#orderService = orderService
   }
 
   create = async (req, res) => {
     try {
-      const order = await this.#ordersService.create(req)
+      const order = await this.#orderService.create(req)
       res.status(201).json(order)
     } catch (error) {
       res.status(error.status).json(error)
@@ -19,7 +19,7 @@ class OrdersController {
 
   getAll = async (req, res) => {
     try {
-      const orders = await this.#ordersService.getAll(req)
+      const orders = await this.#orderService.getAll(req)
       res.status(201).json(orders)
     } catch (error) {
       res.status(error.status).json(error)
@@ -27,7 +27,7 @@ class OrdersController {
   }
 }
 
-const ordersController = new OrdersController(ordersService)
+const orderController = new OrderController(orderService)
 
 //----------* EXPORT CONTROLLER *----------//
-export default ordersController
+export default orderController

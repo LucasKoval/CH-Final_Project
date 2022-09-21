@@ -1,4 +1,7 @@
+//----------* IMPORTS *----------//
 import dotenv from 'dotenv'
+
+//----------* CONFIG *----------//
 dotenv.config()
 
 const isAdmin = (req, res, next) => {
@@ -11,4 +14,5 @@ const isAdmin = (req, res, next) => {
     })
 }
 
+//----------* EXPORT MIDDLEWARE *----------//
 export default isAdmin

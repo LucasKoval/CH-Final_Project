@@ -1,3 +1,4 @@
+//----------* IMPORTS *----------//
 import multer from 'multer'
 
 const uploadImg = multer({
@@ -20,4 +21,5 @@ const uploadImg = multer({
   },
 })
 
+//----------* EXPORT MIDDLEWARE *----------//
 export default uploadImg

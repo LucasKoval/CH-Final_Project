@@ -1,3 +1,4 @@
+//----------* IMPORTS *----------//
 import serverInfo from '../Config/server-info.js'
 
 class InfoController {

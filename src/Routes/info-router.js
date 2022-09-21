@@ -2,7 +2,7 @@
 import { Router } from 'express'
 import infoController from '../Controllers/info-controller.js'
 
-//----------* CHAT ROUTES *----------//
+//----------* INFO ROUTES *----------//
 const infoRouter = new Router()
 
 // Show Server Info

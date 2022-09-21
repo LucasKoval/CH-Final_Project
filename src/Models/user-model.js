@@ -26,7 +26,7 @@ export default class UserModel {
   set id(id) {
     if (!id)
       throw {
-        message: 'El id es requerido.',
+        message: 'The ID is required.',
         code: 'id_required',
         expected: true,
         status: 400,
@@ -34,7 +34,7 @@ export default class UserModel {
 
     if (typeof id !== 'string')
       throw {
-        message: 'El id debe ser un string.',
+        message: 'The ID must be a string.',
         code: 'id_must_be_string',
         status: 400,
         expected: true,
@@ -46,7 +46,7 @@ export default class UserModel {
   set password(password) {
     if (!password)
       throw {
-        message: 'La contraseña es requerida.',
+        message: 'The password is required.',
         code: 'password_required',
         expected: true,
         status: 400,
@@ -54,7 +54,7 @@ export default class UserModel {
 
     if (typeof password !== 'string')
       throw {
-        message: 'La contraseña debe ser un string.',
+        message: 'The password must be a string.',
         code: 'password_must_be_string',
         status: 400,
         expected: true,
@@ -66,7 +66,7 @@ export default class UserModel {
   set email(email) {
     if (!email)
       throw {
-        message: 'El correo electrónico es requerido.',
+        message: 'The email is required.',
         code: 'email_required',
         expected: true,
         status: 400,
@@ -74,7 +74,7 @@ export default class UserModel {
 
     if (typeof email !== 'string')
       throw {
-        message: 'El correo electrónico debe ser un string.',
+        message: 'The email must be a string.',
         code: 'email_must_be_string',
         status: 400,
         expected: true,
@@ -86,7 +86,7 @@ export default class UserModel {
   set first_name(first_name) {
     if (!first_name)
       throw {
-        message: 'El nombre es requerido.',
+        message: 'The name is required.',
         code: 'first_name_required',
         expected: true,
         status: 400,
@@ -94,7 +94,7 @@ export default class UserModel {
 
     if (typeof first_name !== 'string')
       throw {
-        message: 'El nombre debe ser un string.',
+        message: 'The name must be a string.',
         code: 'first_name_must_be_string',
         status: 400,
         expected: true,
@@ -106,7 +106,7 @@ export default class UserModel {
   set last_name(last_name) {
     if (!last_name)
       throw {
-        message: 'El apellido es requerido.',
+        message: 'The last name is required.',
         code: 'last_name_required',
         expected: true,
         status: 400,
@@ -114,7 +114,7 @@ export default class UserModel {
 
     if (typeof last_name !== 'string')
       throw {
-        message: 'El apellido debe ser un string.',
+        message: 'The last name must be a string.',
         code: 'last_name_must_be_string',
         status: 400,
         expected: true,
@@ -126,7 +126,7 @@ export default class UserModel {
   set phone(phone) {
     if (!phone)
       throw {
-        message: 'El teléfono es requerido.',
+        message: 'The phone is required.',
         code: 'phone_required',
         expected: true,
         status: 400,
@@ -134,7 +134,7 @@ export default class UserModel {
 
     if (typeof phone !== 'string')
       throw {
-        message: 'El teléfono debe ser un string.',
+        message: 'The phone must be a string.',
         code: 'phone_must_be_string',
         status: 400,
         expected: true,
@@ -146,7 +146,7 @@ export default class UserModel {
   set image(image) {
     if (!image)
       throw {
-        message: 'La imagen es requerida.',
+        message: 'The image is required.',
         code: 'image_required',
         expected: true,
         status: 400,
@@ -154,7 +154,7 @@ export default class UserModel {
 
     if (typeof image !== 'string')
       throw {
-        message: 'La imagen debe ser un string.',
+        message: 'The image must be a string.',
         code: 'image_must_be_string',
         status: 400,
         expected: true,

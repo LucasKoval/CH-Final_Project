@@ -6,7 +6,7 @@ import tokenGenerator from '../Utils/token-generator.js'
 import idGenerator from '../Utils/id-generator.js'
 import encryptPass from '../Utils/encrypt-pass.js'
 
-class UsersService {
+class UserService {
   #userModel
   #usersDao
   #cartService
@@ -33,7 +33,7 @@ class UsersService {
       const newUser = await this.#usersDao.create(userDto)
       if (!newUser)
         throw {
-          message: 'Error al crear usuario.',
+          message: 'Error creating user.',
           code: 'create_user_error',
           status: 500,
           expected: true,
@@ -42,7 +42,7 @@ class UsersService {
       const userCart = await this.#cartService.create(newUser.id)
       if (!userCart)
         throw {
-          message: 'Error al crear carrito de usuario.',
+          message: 'Error creating user cart.',
           code: 'create_cart_error',
           status: 500,
           expected: true,
@@ -55,7 +55,7 @@ class UsersService {
       console.log({ error })
       if (!error.expected)
         error = {
-          message: 'Error al registrar usuario.',
+          message: 'Error registering user.',
           code: 'register_error',
           status: 500,
         }
@@ -70,7 +70,7 @@ class UsersService {
       const user = await this.#usersDao.getByEmail(email)
       if (user)
         throw {
-          message: 'Email ya registrado.',
+          message: 'Email already registered.',
           code: 'email_already_registered',
           status: 400,
           expected: true,
@@ -82,7 +82,7 @@ class UsersService {
   }
 }
 
-const usersService = new UsersService(
+const userService = new UserService(
   UserModel,
   usersDao,
   cartService,
@@ -92,4 +92,4 @@ const usersService = new UsersService(
 )
 
 //----------* EXPORT SERVICE *----------//
-export default usersService
+export default userService

@@ -24,7 +24,7 @@ export default class OrderModel {
   set id(id) {
     if (!id)
       throw {
-        message: 'El id de la orden es requerido.',
+        message: 'The order ID is required.',
         code: 'id_required',
         expected: true,
         status: 400,
@@ -32,7 +32,7 @@ export default class OrderModel {
 
     if (typeof id !== 'string')
       throw {
-        message: 'El id de la orden debe ser un string.',
+        message: 'The order ID must be a string.',
         code: 'id_must_be_string',
         status: 400,
         expected: true,
@@ -44,7 +44,7 @@ export default class OrderModel {
   set date(date) {
     if (!date)
       throw {
-        message: 'La fecha de orden es requerida.',
+        message: 'The order date is required.',
         code: 'order_date_required',
         expected: true,
         status: 400,
@@ -52,7 +52,7 @@ export default class OrderModel {
 
     if (typeof date !== 'number')
       throw {
-        message: 'La fecha de orden debe ser un número.',
+        message: 'The order date must be a number.',
         code: 'order_date_must_be_number',
         status: 400,
         expected: true,
@@ -65,7 +65,7 @@ export default class OrderModel {
     console.log({ userId })
     if (!userId)
       throw {
-        message: 'El id de cliente en la orden es requerido.',
+        message: 'The client ID in the order is required.',
         code: 'userId_required',
         expected: true,
         status: 400,
@@ -73,7 +73,7 @@ export default class OrderModel {
 
     if (typeof userId !== 'string')
       throw {
-        message: 'El id de cliente en la orden debe ser un string.',
+        message: 'The client ID in the order must be a string.',
         code: 'userId_must_be_string',
         status: 400,
         expected: true,
@@ -85,7 +85,7 @@ export default class OrderModel {
   set first_name(first_name) {
     if (!first_name)
       throw {
-        message: 'El nombre en la orden es requerido.',
+        message: 'The name in the order is required.',
         code: 'first_name_required',
         expected: true,
         status: 400,
@@ -93,7 +93,7 @@ export default class OrderModel {
 
     if (typeof first_name !== 'string')
       throw {
-        message: 'El nombre en la orden debe ser un string.',
+        message: 'The name in the order must be a string.',
         code: 'first_name_must_be_string',
         status: 400,
         expected: true,
@@ -105,7 +105,7 @@ export default class OrderModel {
   set last_name(last_name) {
     if (!last_name)
       throw {
-        message: 'El apellido en la orden es requerido.',
+        message: 'The last name on the order is required.',
         code: 'last_name_required',
         expected: true,
         status: 400,
@@ -113,7 +113,7 @@ export default class OrderModel {
 
     if (typeof last_name !== 'string')
       throw {
-        message: 'El apellido en la orden debe ser un string.',
+        message: 'The last name in the order must be a string.',
         code: 'last_name_must_be_string',
         status: 400,
         expected: true,
@@ -125,7 +125,7 @@ export default class OrderModel {
   set email(email) {
     if (!email)
       throw {
-        message: 'El correo electrónico en la orden es requerido.',
+        message: 'The email in the order is required.',
         code: 'email_required',
         expected: true,
         status: 400,
@@ -133,7 +133,7 @@ export default class OrderModel {
 
     if (typeof email !== 'string')
       throw {
-        message: 'El correo electrónico en la orden debe ser un string.',
+        message: 'The email in the order must be a string.',
         code: 'email_must_be_string',
         status: 400,
         expected: true,
@@ -145,7 +145,7 @@ export default class OrderModel {
   set phone(phone) {
     if (!phone)
       throw {
-        message: 'El teléfono en la orden es requerido.',
+        message: 'The phone in the order is required.',
         code: 'phone_required',
         expected: true,
         status: 400,
@@ -153,7 +153,7 @@ export default class OrderModel {
 
     if (typeof phone !== 'string')
       throw {
-        message: 'El correo electrónico en la orden debe ser un string.',
+        message: 'The phone in the order must be a string.',
         code: 'phone_must_be_string',
         status: 400,
         expected: true,
@@ -165,7 +165,7 @@ export default class OrderModel {
   set image(image) {
     if (!image)
       throw {
-        message: 'La imagen en la orden es requerido.',
+        message: 'The image in the order is required.',
         code: 'image_required',
         expected: true,
         status: 400,
@@ -173,7 +173,7 @@ export default class OrderModel {
 
     if (typeof image !== 'string')
       throw {
-        message: 'La imagen en la orden debe ser un string.',
+        message: 'The image in the order must be a string.',
         code: 'image_must_be_string',
         status: 400,
         expected: true,
@@ -185,7 +185,7 @@ export default class OrderModel {
   set products(products) {
     if (!products)
       throw {
-        message: 'Los productos en la orden son requeridos.',
+        message: 'The products on the order are required.',
         code: 'order_products_required',
         expected: true,
         status: 400,
@@ -193,7 +193,7 @@ export default class OrderModel {
 
     if (!Array.isArray(products))
       throw {
-        message: 'Los productos en la orden deben ser un array.',
+        message: 'The products in the order must be an array.',
         code: 'order_products_must_be_array',
         status: 400,
         expected: true,

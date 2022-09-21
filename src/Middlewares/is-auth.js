@@ -1,5 +1,8 @@
+//----------* IMPORTS *----------//
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
+
+//----------* CONFIG *----------//
 dotenv.config()
 
 const isAuth = (req, res, next) => {
@@ -35,4 +38,5 @@ const isAuth = (req, res, next) => {
   next()
 }
 
+//----------* EXPORT MIDDLEWARE *----------//
 export default isAuth
