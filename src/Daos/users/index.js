@@ -1,5 +1,7 @@
+//----------* IMPORTS *----------//
 import config from '../../Config/mongodb.js'
 
+//----------* CONFIG *----------//
 let usersDao
 
 switch (config.persistence) {
@@ -17,4 +19,5 @@ switch (config.persistence) {
     }
 }
 
+//----------* EXPORT DAO *----------//
 export { usersDao }
